@@ -20,6 +20,16 @@ height = 650 # Altura
 score = 0
 tamanho = 100
 
+""" CENÁRIOS DO JOGO """
+floresta = pygame.image.load("images/Cenário Floresta3D.png")
+floresta = pygame.transform.scale(floresta,(length,height))
+
+cidade = pygame.image.load("images/cenário cidade.png")
+cidade = pygame.transform.scale(cidade,(length,height))
+
+deserto = pygame.image.load("images/Cenário Deserto3D.png")
+deserto = pygame.transform.scale(deserto,(length,height))
+
 " FONTES DO JOGO "
 textfont1 = pygame.font.SysFont('arial', 40, True, True)
 textfont2 = pygame.font.SysFont('arial', 100, True, True)
@@ -120,6 +130,8 @@ while game_mode:
                                         for choice in pygame.event.get():
                                             if choice.type == QUIT:
                                                 OFF = False
+                                                game_scenery = False
+                                                game_mode = False
                                         
                                         if pygame.key.get_pressed()[K_w]: # UP
                                             axis_y -= 10 
@@ -130,7 +142,7 @@ while game_mode:
                                         if pygame.key.get_pressed()[K_a]: # LEFT
                                             axis_x -= 10
 
-                                        pygame.draw.circle(gamescreen, (230,0,210), (axis_x, axis_y) , 80)
+                                        circle = pygame.draw.circle(gamescreen, (230,0,210), (axis_x, axis_y) , 80)
 
                                         if axis_x + tamanho > length:
                                             game_over = True
@@ -141,6 +153,7 @@ while game_mode:
                                         if axis_y < 0:
                                             game_over = True
 
+                                        gamescreen.blit(floresta, (0,0))
                                         gamescreen.blit(ftext9, (70,30))
 
                                         pygame.display.update()
@@ -210,6 +223,8 @@ while game_mode:
                                         for choice in pygame.event.get():
                                             if choice.type == QUIT:
                                                 OFF = False
+                                                game_scenery = False
+                                                game_mode = False
                                         
                                         if pygame.key.get_pressed()[K_w]: # UP
                                             axis_y -= 10 
@@ -231,6 +246,7 @@ while game_mode:
                                         if axis_y < 0:
                                             game_over = True
 
+                                        gamescreen.blit(cidade, (0,0))
                                         gamescreen.blit(ftext9, (70,30))
 
                                         pygame.display.update()
@@ -300,6 +316,8 @@ while game_mode:
                                         for choice in pygame.event.get():
                                             if choice.type == QUIT:
                                                 OFF = False
+                                                game_scenery = False
+                                                game_mode = False
                                         
                                         if pygame.key.get_pressed()[K_w]: # UP
                                             axis_y -= 10 
@@ -321,6 +339,7 @@ while game_mode:
                                         if axis_y < 0:
                                             game_over = True
 
+                                        gamescreen.blit(deserto, (0,0))
                                         gamescreen.blit(ftext9, (70,30))
 
                                         pygame.display.update()
@@ -429,6 +448,8 @@ while game_mode:
                                         for choice in pygame.event.get():
                                             if choice.type == QUIT:
                                                 OFF = False
+                                                game_scenery = False
+                                                game_mode = False
                                         
                                         if pygame.key.get_pressed()[K_w]: # UP
                                             axis_y -= 10 
@@ -450,6 +471,7 @@ while game_mode:
                                         if axis_y < 0:
                                             game_over = True
 
+                                        gamescreen.blit(floresta, (0,0))
                                         gamescreen.blit(ftext9, (70,30))
 
                                         pygame.display.update()
@@ -519,6 +541,8 @@ while game_mode:
                                         for choice in pygame.event.get():
                                             if choice.type == QUIT:
                                                 OFF = False
+                                                game_scenery = False
+                                                game_mode = False
                                         
                                         if pygame.key.get_pressed()[K_w]: # UP
                                             axis_y -= 10 
@@ -540,6 +564,7 @@ while game_mode:
                                         if axis_y < 0:
                                             game_over = True
 
+                                        gamescreen.blit(cidade, (0,0))
                                         gamescreen.blit(ftext9, (70,30))
 
                                         pygame.display.update()
@@ -609,6 +634,8 @@ while game_mode:
                                         for choice in pygame.event.get():
                                             if choice.type == QUIT:
                                                 OFF = False
+                                                game_scenery = False
+                                                game_mode = False
                                         
                                         if pygame.key.get_pressed()[K_w]: # UP
                                             axis_y -= 10 
@@ -630,6 +657,7 @@ while game_mode:
                                         if axis_y < 0:
                                             game_over = True
 
+                                        gamescreen.blit(deserto, (0,0))
                                         gamescreen.blit(ftext9, (70,30))
 
                                         pygame.display.update()
@@ -739,6 +767,8 @@ while game_mode:
                                         for choice in pygame.event.get():
                                             if choice.type == QUIT:
                                                 OFF = False
+                                                game_scenery = False
+                                                game_mode = False
                                         
                                         if pygame.key.get_pressed()[K_w]: # UP
                                             axis_y -= 10 
@@ -760,6 +790,7 @@ while game_mode:
                                         if axis_y < 0:
                                             game_over = True
 
+                                        gamescreen.blit(floresta, (0,0))
                                         gamescreen.blit(ftext9, (70,30))
 
                                         pygame.display.update()
@@ -829,6 +860,8 @@ while game_mode:
                                         for choice in pygame.event.get():
                                             if choice.type == QUIT:
                                                 OFF = False
+                                                game_scenery = False
+                                                game_mode = False
                                         
                                         if pygame.key.get_pressed()[K_w]: # UP
                                             axis_y -= 10 
@@ -850,6 +883,7 @@ while game_mode:
                                         if axis_y < 0:
                                             game_over = True
 
+                                        gamescreen.blit(cidade, (0,0))
                                         gamescreen.blit(ftext9, (70,30))
 
                                         pygame.display.update()
@@ -919,6 +953,8 @@ while game_mode:
                                         for choice in pygame.event.get():
                                             if choice.type == QUIT:
                                                 OFF = False
+                                                game_scenery = False
+                                                game_mode = False
                                         
                                         if pygame.key.get_pressed()[K_w]: # UP
                                             axis_y -= 10 
@@ -940,6 +976,7 @@ while game_mode:
                                         if axis_y < 0:
                                             game_over = True
 
+                                        gamescreen.blit(deserto, (0,0))
                                         gamescreen.blit(ftext9, (70,30))
 
                                         pygame.display.update()
@@ -999,7 +1036,7 @@ while game_mode:
 
                     pygame.display.update() # Atualização da tela (porções da tela).
     
-    time.tick(80) # FPS
+    time.tick(30) # FPS
     pygame.display.update() # Atualização da tela (porções da tela).
 
 """ FINALIZAR JOGO """
