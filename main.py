@@ -180,8 +180,6 @@ while game_mode:
                                                 x = pygame.mouse.get_pos()[0]
                                                 y = pygame.mouse.get_pos()[1]
 
-                                                OFF = True
-                                                game_over = False
                                                 ''' BOTÃO CONTINUAR '''
                                                 if x > 395 and y > 290 and x < 625 and y < 370:
                                                     OFF = True
