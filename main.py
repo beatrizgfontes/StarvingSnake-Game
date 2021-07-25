@@ -100,7 +100,7 @@ while game_mode:
                         if choice.type == QUIT:
                             game_scenery = False
                             game_mode = False
-                            
+
                         if choice.type == pygame.MOUSEBUTTONDOWN:
                             x = pygame.mouse.get_pos()[0]
                             y = pygame.mouse.get_pos()[1]
@@ -112,56 +112,6 @@ while game_mode:
 
                                 " LOOP DO JOGO "
                                 while OFF:
-                                    " LOOP DO GAME OVER "
-                                    while game_over:
-                                        gamescreen.fill(forestgreen)
-                                        
-                                        " ELEMENTOS DA TELA "
-                                        text10 = ("Game Over")
-                                        ftext10 = textfont2.render(text10, True, red)
-                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
-
-                                        text11 = f"Score: {score}"
-                                        ftext11 = textfont3.render(text11, True, white)
-                                        gamescreen.blit(ftext11,(485,165))
-
-                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
-                                        text12 = ("Continuar")
-                                        ftext12 = textfont4.render(text12, True, white)
-                                        gamescreen.blit(ftext12, (393,305))
-
-                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
-                                        text13 = ("Sair")
-                                        ftext13 = textfont4.render(text13, True, white)
-                                        gamescreen.blit(ftext13, (750,305))
-
-
-                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
-                                            if choice.type == QUIT: # Opção para sair do jogo.
-                                                game_over = False
-                                                OFF = False
-                                                game_scenery = False
-                                                game_mode = False
-
-                                            if choice.type == pygame.MOUSEBUTTONDOWN:
-                                                x = pygame.mouse.get_pos()[0]
-                                                y = pygame.mouse.get_pos()[1]
-
-                                                ''' BOTÃO CONTINUAR '''
-                                                if x > 395 and y > 290 and x < 625 and y < 370:
-                                                    OFF = True
-                                                    game_over = False
-                                                    axis_x = randint(tamanho, (length-tamanho))
-                                                    axis_y = randint(tamanho, (height-tamanho))
-                                                    score = 0
-
-                                                ''' BOTÃO SAIR '''
-                                                if x > 690 and y > 290 and x < 920 and y < 370:
-                                                    OFF = False
-                                                    game_over = False
-
-                                        pygame.display.update()
-
                                     if OFF:
                                         gamescreen.fill(white)
                                         text9 = f"Score: {score}"
@@ -195,11 +145,6 @@ while game_mode:
 
                                         pygame.display.update()
 
-                            ''' BOTÃO CIDADE '''
-                            if x > 495 and y > 360 and x < 725 and y < 440:
-
-                                " LOOP DO JOGO "
-                                while OFF:
                                     " LOOP DO GAME OVER "
                                     while game_over:
                                         gamescreen.fill(forestgreen)
@@ -216,7 +161,99 @@ while game_mode:
                                         pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
                                         text12 = ("Continuar")
                                         ftext12 = textfont4.render(text12, True, white)
-                                        gamescreen.blit(ftext12, (393,305))
+                                        gamescreen.blit(ftext12, (403,305))
+
+                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
+                                        text13 = ("Menu")
+                                        ftext13 = textfont4.render(text13, True, white)
+                                        gamescreen.blit(ftext13, (750,305))
+
+
+                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
+                                            if choice.type == QUIT: # Opção para sair do jogo.
+                                                game_over = False
+                                                OFF = False
+                                                game_scenery = False
+                                                game_mode = False
+
+                                            if choice.type == pygame.MOUSEBUTTONDOWN:
+                                                x = pygame.mouse.get_pos()[0]
+                                                y = pygame.mouse.get_pos()[1]
+
+                                                OFF = True
+                                                game_over = False
+                                                ''' BOTÃO CONTINUAR '''
+                                                if x > 395 and y > 290 and x < 625 and y < 370:
+                                                    OFF = True
+                                                    game_over = False
+                                                    axis_x = randint(tamanho, (length-tamanho))
+                                                    axis_y = randint(tamanho, (height-tamanho))
+                                                    score = 0
+
+                                                ''' BOTÃO MENU '''
+                                                if x > 690 and y > 290 and x < 920 and y < 370:
+                                                    game_over = False
+                                                    OFF = False
+                                                    game_scenery = False
+                                                    game_mode = True
+
+                                        pygame.display.update()
+
+                            ''' BOTÃO CIDADE '''
+                            if x > 495 and y > 360 and x < 725 and y < 440:
+
+                                " LOOP DO JOGO "
+                                while OFF:
+                                    if OFF:
+                                        gamescreen.fill(white)
+                                        text9 = f"Score: {score}"
+                                        ftext9 = textfont1.render(text9, True, black)
+
+                                        for choice in pygame.event.get():
+                                            if choice.type == QUIT:
+                                                OFF = False
+                                        
+                                        if pygame.key.get_pressed()[K_w]: # UP
+                                            axis_y -= 10 
+                                        if pygame.key.get_pressed()[K_s]: # DOWN
+                                            axis_y += 10 
+                                        if pygame.key.get_pressed()[K_d]: # RIGHT
+                                            axis_x += 10 
+                                        if pygame.key.get_pressed()[K_a]: # LEFT
+                                            axis_x -= 10
+
+                                        pygame.draw.circle(gamescreen, (230,0,210), (axis_x, axis_y) , 80)
+
+                                        if axis_x + tamanho > length:
+                                            game_over = True
+                                        if axis_x < 0:
+                                            game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
+                                        if axis_y + tamanho > height:
+                                            game_over = True
+                                        if axis_y < 0:
+                                            game_over = True
+
+                                        gamescreen.blit(ftext9, (70,30))
+
+                                        pygame.display.update()
+
+                                    " LOOP DO GAME OVER "
+                                    while game_over:
+                                        gamescreen.fill(forestgreen)
+                                        
+                                        " ELEMENTOS DA TELA "
+                                        text10 = ("Game Over")
+                                        ftext10 = textfont2.render(text10, True, red)
+                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
+
+                                        text11 = f"Score: {score}"
+                                        ftext11 = textfont3.render(text11, True, white)
+                                        gamescreen.blit(ftext11,(485,165))
+
+                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
+                                        text12 = ("Continuar")
+                                        ftext12 = textfont4.render(text12, True, white)
+                                        gamescreen.blit(ftext12, (403,305))
 
                                         pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
                                         text13 = ("Menu")
@@ -252,6 +289,11 @@ while game_mode:
 
                                         pygame.display.update()
 
+                            ''' BOTÃO DESERTO '''
+                            if x > 495 and y > 490 and x < 725 and y < 570:
+
+                                " LOOP DO JOGO "
+                                while OFF:
                                     if OFF:
                                         gamescreen.fill(white)
                                         text9 = f"Score: {score}"
@@ -285,11 +327,6 @@ while game_mode:
 
                                         pygame.display.update()
 
-                            ''' BOTÃO DESERTO '''
-                            if x > 495 and y > 490 and x < 725 and y < 570:
-                                
-                                " LOOP DO JOGO "
-                                while OFF:
                                     " LOOP DO GAME OVER "
                                     while game_over:
                                         gamescreen.fill(forestgreen)
@@ -306,10 +343,10 @@ while game_mode:
                                         pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
                                         text12 = ("Continuar")
                                         ftext12 = textfont4.render(text12, True, white)
-                                        gamescreen.blit(ftext12, (393,305))
+                                        gamescreen.blit(ftext12, (403,305))
 
                                         pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
-                                        text13 = ("Sair")
+                                        text13 = ("Menu")
                                         ftext13 = textfont4.render(text13, True, white)
                                         gamescreen.blit(ftext13, (750,305))
 
@@ -333,46 +370,14 @@ while game_mode:
                                                     axis_y = randint(tamanho, (height-tamanho))
                                                     score = 0
 
-                                                ''' BOTÃO SAIR '''
+                                                ''' BOTÃO MENU '''
                                                 if x > 690 and y > 290 and x < 920 and y < 370:
-                                                    OFF = False
                                                     game_over = False
+                                                    OFF = False
+                                                    game_scenery = False
+                                                    game_mode = True
 
                                         pygame.display.update()
-
-                                    if OFF:
-                                        gamescreen.fill(white)
-                                        text9 = f"Score: {score}"
-                                        ftext9 = textfont1.render(text9, True, black)
-
-                                        for choice in pygame.event.get():
-                                            if choice.type == QUIT:
-                                                OFF = False
-                                        
-                                        if pygame.key.get_pressed()[K_w]: # UP
-                                            axis_y -= 10 
-                                        if pygame.key.get_pressed()[K_s]: # DOWN
-                                            axis_y += 10 
-                                        if pygame.key.get_pressed()[K_d]: # RIGHT
-                                            axis_x += 10 
-                                        if pygame.key.get_pressed()[K_a]: # LEFT
-                                            axis_x -= 10
-
-                                        pygame.draw.circle(gamescreen, (230,0,210), (axis_x, axis_y) , 80)
-
-                                        if axis_x + tamanho > length:
-                                            game_over = True
-                                        if axis_x < 0:
-                                            game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
-                                        if axis_y + tamanho > height:
-                                            game_over = True
-                                        if axis_y < 0:
-                                            game_over = True
-
-                                        gamescreen.blit(ftext9, (70,30))
-
-                                        pygame.display.update()
-    
 
                     pygame.display.update() # Atualização da tela (porções da tela).
 
@@ -418,56 +423,6 @@ while game_mode:
 
                                 " LOOP DO JOGO "
                                 while OFF:
-                                    " LOOP DO GAME OVER "
-                                    while game_over:
-                                        gamescreen.fill(forestgreen)
-                                        
-                                        " ELEMENTOS DA TELA "
-                                        text10 = ("Game Over")
-                                        ftext10 = textfont2.render(text10, True, red)
-                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
-
-                                        text11 = f"Score: {score}"
-                                        ftext11 = textfont3.render(text11, True, white)
-                                        gamescreen.blit(ftext11,(485,165))
-
-                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
-                                        text12 = ("Continuar")
-                                        ftext12 = textfont4.render(text12, True, white)
-                                        gamescreen.blit(ftext12, (393,305))
-
-                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
-                                        text13 = ("Sair")
-                                        ftext13 = textfont4.render(text13, True, white)
-                                        gamescreen.blit(ftext13, (750,305))
-
-
-                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
-                                            if choice.type == QUIT: # Opção para sair do jogo.
-                                                game_over = False
-                                                OFF = False
-                                                game_scenery = False
-                                                game_mode = False
-
-                                            if choice.type == pygame.MOUSEBUTTONDOWN:
-                                                x = pygame.mouse.get_pos()[0]
-                                                y = pygame.mouse.get_pos()[1]
-
-                                                ''' BOTÃO CONTINUAR '''
-                                                if x > 395 and y > 290 and x < 625 and y < 370:
-                                                    OFF = True
-                                                    game_over = False
-                                                    axis_x = randint(tamanho, (length-tamanho))
-                                                    axis_y = randint(tamanho, (height-tamanho))
-                                                    score = 0
-
-                                                ''' BOTÃO SAIR '''
-                                                if x > 690 and y > 290 and x < 920 and y < 370:
-                                                    OFF = False
-                                                    game_over = False
-
-                                        pygame.display.update()
-
                                     if OFF:
                                         gamescreen.fill(white)
                                         text9 = f"Score: {score}"
@@ -498,6 +453,58 @@ while game_mode:
                                             game_over = True
 
                                         gamescreen.blit(ftext9, (70,30))
+
+                                        pygame.display.update()
+
+                                    " LOOP DO GAME OVER "
+                                    while game_over:
+                                        gamescreen.fill(forestgreen)
+                                        
+                                        " ELEMENTOS DA TELA "
+                                        text10 = ("Game Over")
+                                        ftext10 = textfont2.render(text10, True, red)
+                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
+
+                                        text11 = f"Score: {score}"
+                                        ftext11 = textfont3.render(text11, True, white)
+                                        gamescreen.blit(ftext11,(485,165))
+
+                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
+                                        text12 = ("Continuar")
+                                        ftext12 = textfont4.render(text12, True, white)
+                                        gamescreen.blit(ftext12, (403,305))
+
+                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
+                                        text13 = ("Menu")
+                                        ftext13 = textfont4.render(text13, True, white)
+                                        gamescreen.blit(ftext13, (750,305))
+
+
+                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
+                                            if choice.type == QUIT: # Opção para sair do jogo.
+                                                game_over = False
+                                                OFF = False
+                                                game_scenery = False
+                                                game_mode = False
+
+                                            if choice.type == pygame.MOUSEBUTTONDOWN:
+                                                x = pygame.mouse.get_pos()[0]
+                                                y = pygame.mouse.get_pos()[1]
+
+                                                ''' BOTÃO CONTINUAR '''
+                                                if x > 395 and y > 290 and x < 625 and y < 370:
+                                                    OFF = True
+                                                    game_over = False
+                                                    axis_x = randint(tamanho, (length-tamanho))
+                                                    axis_y = randint(tamanho, (height-tamanho))
+                                                    score = 0
+
+                                                ''' BOTÃO MENU '''
+                                                if x > 690 and y > 290 and x < 920 and y < 370:
+                                                    game_over = False
+                                                    OFF = False
+                                                    game_scenery = False
+                                                    game_mode = True
 
                                         pygame.display.update()
 
@@ -506,56 +513,6 @@ while game_mode:
                                 
                                 " LOOP DO JOGO "
                                 while OFF:
-                                    " LOOP DO GAME OVER "
-                                    while game_over:
-                                        gamescreen.fill(forestgreen)
-                                        
-                                        " ELEMENTOS DA TELA "
-                                        text10 = ("Game Over")
-                                        ftext10 = textfont2.render(text10, True, red)
-                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
-
-                                        text11 = f"Score: {score}"
-                                        ftext11 = textfont3.render(text11, True, white)
-                                        gamescreen.blit(ftext11,(485,165))
-
-                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
-                                        text12 = ("Continuar")
-                                        ftext12 = textfont4.render(text12, True, white)
-                                        gamescreen.blit(ftext12, (393,305))
-
-                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
-                                        text13 = ("Sair")
-                                        ftext13 = textfont4.render(text13, True, white)
-                                        gamescreen.blit(ftext13, (750,305))
-
-
-                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
-                                            if choice.type == QUIT: # Opção para sair do jogo.
-                                                game_over = False
-                                                OFF = False
-                                                game_scenery = False
-                                                game_mode = False
-
-                                            if choice.type == pygame.MOUSEBUTTONDOWN:
-                                                x = pygame.mouse.get_pos()[0]
-                                                y = pygame.mouse.get_pos()[1]
-
-                                                ''' BOTÃO CONTINUAR '''
-                                                if x > 395 and y > 290 and x < 625 and y < 370:
-                                                    OFF = True
-                                                    game_over = False
-                                                    axis_x = randint(tamanho, (length-tamanho))
-                                                    axis_y = randint(tamanho, (height-tamanho))
-                                                    score = 0
-
-                                                ''' BOTÃO SAIR '''
-                                                if x > 690 and y > 290 and x < 920 and y < 370:
-                                                    OFF = False
-                                                    game_over = False
-
-                                        pygame.display.update()
-
                                     if OFF:
                                         gamescreen.fill(white)
                                         text9 = f"Score: {score}"
@@ -586,6 +543,58 @@ while game_mode:
                                             game_over = True
 
                                         gamescreen.blit(ftext9, (70,30))
+
+                                        pygame.display.update()
+
+                                    " LOOP DO GAME OVER "
+                                    while game_over:
+                                        gamescreen.fill(forestgreen)
+                                        
+                                        " ELEMENTOS DA TELA "
+                                        text10 = ("Game Over")
+                                        ftext10 = textfont2.render(text10, True, red)
+                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
+
+                                        text11 = f"Score: {score}"
+                                        ftext11 = textfont3.render(text11, True, white)
+                                        gamescreen.blit(ftext11,(485,165))
+
+                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
+                                        text12 = ("Continuar")
+                                        ftext12 = textfont4.render(text12, True, white)
+                                        gamescreen.blit(ftext12, (403,305))
+
+                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
+                                        text13 = ("Menu")
+                                        ftext13 = textfont4.render(text13, True, white)
+                                        gamescreen.blit(ftext13, (750,305))
+
+
+                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
+                                            if choice.type == QUIT: # Opção para sair do jogo.
+                                                game_over = False
+                                                OFF = False
+                                                game_scenery = False
+                                                game_mode = False
+
+                                            if choice.type == pygame.MOUSEBUTTONDOWN:
+                                                x = pygame.mouse.get_pos()[0]
+                                                y = pygame.mouse.get_pos()[1]
+
+                                                ''' BOTÃO CONTINUAR '''
+                                                if x > 395 and y > 290 and x < 625 and y < 370:
+                                                    OFF = True
+                                                    game_over = False
+                                                    axis_x = randint(tamanho, (length-tamanho))
+                                                    axis_y = randint(tamanho, (height-tamanho))
+                                                    score = 0
+
+                                                ''' BOTÃO MENU '''
+                                                if x > 690 and y > 290 and x < 920 and y < 370:
+                                                    game_over = False
+                                                    OFF = False
+                                                    game_scenery = False
+                                                    game_mode = True
 
                                         pygame.display.update()
 
@@ -594,56 +603,6 @@ while game_mode:
                                 
                                 " LOOP DO JOGO "
                                 while OFF:
-                                    " LOOP DO GAME OVER "
-                                    while game_over:
-                                        gamescreen.fill(forestgreen)
-                                        
-                                        " ELEMENTOS DA TELA "
-                                        text10 = ("Game Over")
-                                        ftext10 = textfont2.render(text10, True, red)
-                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
-
-                                        text11 = f"Score: {score}"
-                                        ftext11 = textfont3.render(text11, True, white)
-                                        gamescreen.blit(ftext11,(485,165))
-
-                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
-                                        text12 = ("Continuar")
-                                        ftext12 = textfont4.render(text12, True, white)
-                                        gamescreen.blit(ftext12, (393,305))
-
-                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
-                                        text13 = ("Sair")
-                                        ftext13 = textfont4.render(text13, True, white)
-                                        gamescreen.blit(ftext13, (750,305))
-
-
-                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
-                                            if choice.type == QUIT: # Opção para sair do jogo.
-                                                game_over = False
-                                                OFF = False
-                                                game_scenery = False
-                                                game_mode = False
-
-                                            if choice.type == pygame.MOUSEBUTTONDOWN:
-                                                x = pygame.mouse.get_pos()[0]
-                                                y = pygame.mouse.get_pos()[1]
-
-                                                ''' BOTÃO CONTINUAR '''
-                                                if x > 395 and y > 290 and x < 625 and y < 370:
-                                                    OFF = True
-                                                    game_over = False
-                                                    axis_x = randint(tamanho, (length-tamanho))
-                                                    axis_y = randint(tamanho, (height-tamanho))
-                                                    score = 0
-
-                                                ''' BOTÃO SAIR '''
-                                                if x > 690 and y > 290 and x < 920 and y < 370:
-                                                    OFF = False
-                                                    game_over = False
-
-                                        pygame.display.update()
-
                                     if OFF:
                                         gamescreen.fill(white)
                                         text9 = f"Score: {score}"
@@ -674,6 +633,58 @@ while game_mode:
                                             game_over = True
 
                                         gamescreen.blit(ftext9, (70,30))
+
+                                        pygame.display.update()
+
+                                    " LOOP DO GAME OVER "
+                                    while game_over:
+                                        gamescreen.fill(forestgreen)
+                                        
+                                        " ELEMENTOS DA TELA "
+                                        text10 = ("Game Over")
+                                        ftext10 = textfont2.render(text10, True, red)
+                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
+
+                                        text11 = f"Score: {score}"
+                                        ftext11 = textfont3.render(text11, True, white)
+                                        gamescreen.blit(ftext11,(485,165))
+
+                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
+                                        text12 = ("Continuar")
+                                        ftext12 = textfont4.render(text12, True, white)
+                                        gamescreen.blit(ftext12, (403,305))
+
+                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
+                                        text13 = ("Menu")
+                                        ftext13 = textfont4.render(text13, True, white)
+                                        gamescreen.blit(ftext13, (750,305))
+
+
+                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
+                                            if choice.type == QUIT: # Opção para sair do jogo.
+                                                game_over = False
+                                                OFF = False
+                                                game_scenery = False
+                                                game_mode = False
+
+                                            if choice.type == pygame.MOUSEBUTTONDOWN:
+                                                x = pygame.mouse.get_pos()[0]
+                                                y = pygame.mouse.get_pos()[1]
+
+                                                ''' BOTÃO CONTINUAR '''
+                                                if x > 395 and y > 290 and x < 625 and y < 370:
+                                                    OFF = True
+                                                    game_over = False
+                                                    axis_x = randint(tamanho, (length-tamanho))
+                                                    axis_y = randint(tamanho, (height-tamanho))
+                                                    score = 0
+
+                                                ''' BOTÃO MENU '''
+                                                if x > 690 and y > 290 and x < 920 and y < 370:
+                                                    game_over = False
+                                                    OFF = False
+                                                    game_scenery = False
+                                                    game_mode = True
 
                                         pygame.display.update()
     
@@ -722,56 +733,6 @@ while game_mode:
 
                                 " LOOP DO JOGO "
                                 while OFF:
-                                    " LOOP DO GAME OVER "
-                                    while game_over:
-                                        gamescreen.fill(forestgreen)
-                                        
-                                        " ELEMENTOS DA TELA "
-                                        text10 = ("Game Over")
-                                        ftext10 = textfont2.render(text10, True, red)
-                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
-
-                                        text11 = f"Score: {score}"
-                                        ftext11 = textfont3.render(text11, True, white)
-                                        gamescreen.blit(ftext11,(485,165))
-
-                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
-                                        text12 = ("Continuar")
-                                        ftext12 = textfont4.render(text12, True, white)
-                                        gamescreen.blit(ftext12, (393,305))
-
-                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
-                                        text13 = ("Sair")
-                                        ftext13 = textfont4.render(text13, True, white)
-                                        gamescreen.blit(ftext13, (750,305))
-
-
-                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
-                                            if choice.type == QUIT: # Opção para sair do jogo.
-                                                game_over = False
-                                                OFF = False
-                                                game_scenery = False
-                                                game_mode = False
-
-                                            if choice.type == pygame.MOUSEBUTTONDOWN:
-                                                x = pygame.mouse.get_pos()[0]
-                                                y = pygame.mouse.get_pos()[1]
-
-                                                ''' BOTÃO CONTINUAR '''
-                                                if x > 395 and y > 290 and x < 625 and y < 370:
-                                                    OFF = True
-                                                    game_over = False
-                                                    axis_x = randint(tamanho, (length-tamanho))
-                                                    axis_y = randint(tamanho, (height-tamanho))
-                                                    score = 0
-
-                                                ''' BOTÃO SAIR '''
-                                                if x > 690 and y > 290 and x < 920 and y < 370:
-                                                    OFF = False
-                                                    game_over = False
-
-                                        pygame.display.update()
-
                                     if OFF:
                                         gamescreen.fill(white)
                                         text9 = f"Score: {score}"
@@ -802,6 +763,58 @@ while game_mode:
                                             game_over = True
 
                                         gamescreen.blit(ftext9, (70,30))
+
+                                        pygame.display.update()
+
+                                    " LOOP DO GAME OVER "
+                                    while game_over:
+                                        gamescreen.fill(forestgreen)
+                                        
+                                        " ELEMENTOS DA TELA "
+                                        text10 = ("Game Over")
+                                        ftext10 = textfont2.render(text10, True, red)
+                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
+
+                                        text11 = f"Score: {score}"
+                                        ftext11 = textfont3.render(text11, True, white)
+                                        gamescreen.blit(ftext11,(485,165))
+
+                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
+                                        text12 = ("Continuar")
+                                        ftext12 = textfont4.render(text12, True, white)
+                                        gamescreen.blit(ftext12, (403,305))
+
+                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
+                                        text13 = ("Menu")
+                                        ftext13 = textfont4.render(text13, True, white)
+                                        gamescreen.blit(ftext13, (750,305))
+
+
+                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
+                                            if choice.type == QUIT: # Opção para sair do jogo.
+                                                game_over = False
+                                                OFF = False
+                                                game_scenery = False
+                                                game_mode = False
+
+                                            if choice.type == pygame.MOUSEBUTTONDOWN:
+                                                x = pygame.mouse.get_pos()[0]
+                                                y = pygame.mouse.get_pos()[1]
+
+                                                ''' BOTÃO CONTINUAR '''
+                                                if x > 395 and y > 290 and x < 625 and y < 370:
+                                                    OFF = True
+                                                    game_over = False
+                                                    axis_x = randint(tamanho, (length-tamanho))
+                                                    axis_y = randint(tamanho, (height-tamanho))
+                                                    score = 0
+
+                                                ''' BOTÃO MENU '''
+                                                if x > 690 and y > 290 and x < 920 and y < 370:
+                                                    game_over = False
+                                                    OFF = False
+                                                    game_scenery = False
+                                                    game_mode = True
 
                                         pygame.display.update()
 
@@ -810,56 +823,6 @@ while game_mode:
                                 
                                 " LOOP DO JOGO "
                                 while OFF:
-                                    " LOOP DO GAME OVER "
-                                    while game_over:
-                                        gamescreen.fill(forestgreen)
-                                        
-                                        " ELEMENTOS DA TELA "
-                                        text10 = ("Game Over")
-                                        ftext10 = textfont2.render(text10, True, red)
-                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
-
-                                        text11 = f"Score: {score}"
-                                        ftext11 = textfont3.render(text11, True, white)
-                                        gamescreen.blit(ftext11,(485,165))
-
-                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
-                                        text12 = ("Continuar")
-                                        ftext12 = textfont4.render(text12, True, white)
-                                        gamescreen.blit(ftext12, (393,305))
-
-                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
-                                        text13 = ("Sair")
-                                        ftext13 = textfont4.render(text13, True, white)
-                                        gamescreen.blit(ftext13, (750,305))
-
-
-                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
-                                            if choice.type == QUIT: # Opção para sair do jogo.
-                                                game_over = False
-                                                OFF = False
-                                                game_scenery = False
-                                                game_mode = False
-
-                                            if choice.type == pygame.MOUSEBUTTONDOWN:
-                                                x = pygame.mouse.get_pos()[0]
-                                                y = pygame.mouse.get_pos()[1]
-
-                                                ''' BOTÃO CONTINUAR '''
-                                                if x > 395 and y > 290 and x < 625 and y < 370:
-                                                    OFF = True
-                                                    game_over = False
-                                                    axis_x = randint(tamanho, (length-tamanho))
-                                                    axis_y = randint(tamanho, (height-tamanho))
-                                                    score = 0
-
-                                                ''' BOTÃO SAIR '''
-                                                if x > 690 and y > 290 and x < 920 and y < 370:
-                                                    OFF = False
-                                                    game_over = False
-
-                                        pygame.display.update()
-
                                     if OFF:
                                         gamescreen.fill(white)
                                         text9 = f"Score: {score}"
@@ -890,6 +853,58 @@ while game_mode:
                                             game_over = True
 
                                         gamescreen.blit(ftext9, (70,30))
+
+                                        pygame.display.update()
+
+                                    " LOOP DO GAME OVER "
+                                    while game_over:
+                                        gamescreen.fill(forestgreen)
+                                        
+                                        " ELEMENTOS DA TELA "
+                                        text10 = ("Game Over")
+                                        ftext10 = textfont2.render(text10, True, red)
+                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
+
+                                        text11 = f"Score: {score}"
+                                        ftext11 = textfont3.render(text11, True, white)
+                                        gamescreen.blit(ftext11,(485,165))
+
+                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
+                                        text12 = ("Continuar")
+                                        ftext12 = textfont4.render(text12, True, white)
+                                        gamescreen.blit(ftext12, (403,305))
+
+                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
+                                        text13 = ("Menu")
+                                        ftext13 = textfont4.render(text13, True, white)
+                                        gamescreen.blit(ftext13, (750,305))
+
+
+                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
+                                            if choice.type == QUIT: # Opção para sair do jogo.
+                                                game_over = False
+                                                OFF = False
+                                                game_scenery = False
+                                                game_mode = False
+
+                                            if choice.type == pygame.MOUSEBUTTONDOWN:
+                                                x = pygame.mouse.get_pos()[0]
+                                                y = pygame.mouse.get_pos()[1]
+
+                                                ''' BOTÃO CONTINUAR '''
+                                                if x > 395 and y > 290 and x < 625 and y < 370:
+                                                    OFF = True
+                                                    game_over = False
+                                                    axis_x = randint(tamanho, (length-tamanho))
+                                                    axis_y = randint(tamanho, (height-tamanho))
+                                                    score = 0
+
+                                                ''' BOTÃO MENU '''
+                                                if x > 690 and y > 290 and x < 920 and y < 370:
+                                                    game_over = False
+                                                    OFF = False
+                                                    game_scenery = False
+                                                    game_mode = True
 
                                         pygame.display.update()
 
@@ -898,56 +913,6 @@ while game_mode:
                                 
                                 " LOOP DO JOGO "
                                 while OFF:
-                                    " LOOP DO GAME OVER "
-                                    while game_over:
-                                        gamescreen.fill(forestgreen)
-                                        
-                                        " ELEMENTOS DA TELA "
-                                        text10 = ("Game Over")
-                                        ftext10 = textfont2.render(text10, True, red)
-                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
-
-                                        text11 = f"Score: {score}"
-                                        ftext11 = textfont3.render(text11, True, white)
-                                        gamescreen.blit(ftext11,(485,165))
-
-                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
-                                        text12 = ("Continuar")
-                                        ftext12 = textfont4.render(text12, True, white)
-                                        gamescreen.blit(ftext12, (393,305))
-
-                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
-                                        text13 = ("Sair")
-                                        ftext13 = textfont4.render(text13, True, white)
-                                        gamescreen.blit(ftext13, (750,305))
-
-
-                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
-                                            if choice.type == QUIT: # Opção para sair do jogo.
-                                                game_over = False
-                                                OFF = False
-                                                game_scenery = False
-                                                game_mode = False
-
-                                            if choice.type == pygame.MOUSEBUTTONDOWN:
-                                                x = pygame.mouse.get_pos()[0]
-                                                y = pygame.mouse.get_pos()[1]
-
-                                                ''' BOTÃO CONTINUAR '''
-                                                if x > 395 and y > 290 and x < 625 and y < 370:
-                                                    OFF = True
-                                                    game_over = False
-                                                    axis_x = randint(tamanho, (length-tamanho))
-                                                    axis_y = randint(tamanho, (height-tamanho))
-                                                    score = 0
-
-                                                ''' BOTÃO SAIR '''
-                                                if x > 690 and y > 290 and x < 920 and y < 370:
-                                                    OFF = False
-                                                    game_over = False
-
-                                        pygame.display.update()
-
                                     if OFF:
                                         gamescreen.fill(white)
                                         text9 = f"Score: {score}"
@@ -978,6 +943,58 @@ while game_mode:
                                             game_over = True
 
                                         gamescreen.blit(ftext9, (70,30))
+
+                                        pygame.display.update()
+
+                                    " LOOP DO GAME OVER "
+                                    while game_over:
+                                        gamescreen.fill(forestgreen)
+                                        
+                                        " ELEMENTOS DA TELA "
+                                        text10 = ("Game Over")
+                                        ftext10 = textfont2.render(text10, True, red)
+                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
+
+                                        text11 = f"Score: {score}"
+                                        ftext11 = textfont3.render(text11, True, white)
+                                        gamescreen.blit(ftext11,(485,165))
+
+                                        pygame.draw.rect(gamescreen, (blue), (395,290,230,80))
+                                        text12 = ("Continuar")
+                                        ftext12 = textfont4.render(text12, True, white)
+                                        gamescreen.blit(ftext12, (403,305))
+
+                                        pygame.draw.rect(gamescreen, (blue), (690,290,230,80))
+                                        text13 = ("Menu")
+                                        ftext13 = textfont4.render(text13, True, white)
+                                        gamescreen.blit(ftext13, (750,305))
+
+
+                                        for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
+                                            if choice.type == QUIT: # Opção para sair do jogo.
+                                                game_over = False
+                                                OFF = False
+                                                game_scenery = False
+                                                game_mode = False
+
+                                            if choice.type == pygame.MOUSEBUTTONDOWN:
+                                                x = pygame.mouse.get_pos()[0]
+                                                y = pygame.mouse.get_pos()[1]
+
+                                                ''' BOTÃO CONTINUAR '''
+                                                if x > 395 and y > 290 and x < 625 and y < 370:
+                                                    OFF = True
+                                                    game_over = False
+                                                    axis_x = randint(tamanho, (length-tamanho))
+                                                    axis_y = randint(tamanho, (height-tamanho))
+                                                    score = 0
+
+                                                ''' BOTÃO MENU '''
+                                                if x > 690 and y > 290 and x < 920 and y < 370:
+                                                    game_over = False
+                                                    OFF = False
+                                                    game_scenery = False
+                                                    game_mode = True
 
                                         pygame.display.update()
     
