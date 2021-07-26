@@ -31,8 +31,10 @@ deserto = pygame.image.load("images/Cenário Deserto3D.png")
 deserto = pygame.transform.scale(deserto,(length,height))
 
 """ POSIÇÃO COBRA """
-axis_x = randint(tamanho, (length-tamanho))
-axis_y = randint(tamanho, (height-tamanho))
+#axis_x = randint(tamanho, (length-tamanho))
+#axis_y = randint(tamanho, (height-tamanho))
+axis_x = length/2
+axis_y = height/2
 
 """ DEFINIÇÃO DE TELA """
 gamescreen = pygame.display.set_mode((length,height)) #  Inicializa uma janela ou tela para exibição.
@@ -43,6 +45,82 @@ textfont1 = pygame.font.SysFont('arial', 40, True, True)
 textfont2 = pygame.font.SysFont('arial', 100, True, True)
 textfont3 = pygame.font.SysFont('arial', 80, True, False)
 textfont4 = pygame.font.SysFont('arial', 45, True, False)
+
+""" IMPORTING THE SNAKE """
+ 
+class Snake(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.snakes = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
+        self.currently = 0
+        self.image = self.snakes[self.currently]
+        self.image = pygame.transform.scale(self.image,(100,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 520,500
+        
+        self.above = False
+        self.below = False
+        self.east = False #Right
+        self.west = False #Left
+ 
+ 
+    def up(self):
+        self.above = True
+ 
+    def down(self):
+         self.below = True
+ 
+    def right(self):
+        self.east = True
+ 
+    def left(self):
+        self.west = True
+     
+ 
+    def update(self):
+        self.currently = self.currently + 1
+        if self.above == True:
+            del self.snakes[0:4]
+            self.snakes.append(pygame.image.load("back/snakeback_0.png"))
+            self.snakes.append(pygame.image.load("back/snakeback_1.png"))
+            self.snakes.append(pygame.image.load("back/snakeback_2.png"))
+            #self.snakes = [pygame.image.load("back/snakeback_0.png"),pygame.image.load("back/snakeback_1.png"),pygame.image.load("back/snakeback_2.png")]
+            self.rect.y -= 100
+            self.above = False
+                    
+        if self.below == True:
+            del self.snakes[0:4]
+            self.snakes.append(pygame.image.load("front/snakefront_0.png"))
+            self.snakes.append(pygame.image.load("front/snakefront_1.png"))
+            #self.snakes = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
+            self.rect.y += 100
+            self.below = False
+ 
+        if self.east == True:
+            del self.snakes[0:4]
+            self.snakes.append(pygame.image.load("right/snakeright_0.png"))
+            self.snakes.append(pygame.image.load("right/snakeright_1.png"))
+            #self.snakes = [pygame.image.load("right/snakeright_0.png"),pygame.image.load("right/snakeright_1.png")]
+            self.rect.x += 100
+            self.east = False
+ 
+        if self.west == True:
+            del self.snakes[0:4]
+            self.snakes.append(pygame.image.load("left/snakeleft_0.png"))
+            self.snakes.append(pygame.image.load("left/snakeleft_1.png"))
+            #self.snakes = [pygame.image.load("left/snakeleft_0.png"),pygame.image.load("left/snakeleft_1.png")]
+            self.rect.x -= 100
+            self.west = False
+            
+        if self.currently >= len(self.snakes):
+            self.currently = 0
+        self.image = self.snakes[self.currently]
+        self.image = pygame.transform.scale(self.image,(100,100))
+ 
+all = pygame.sprite.Group()
+snake = Snake()
+all.add(snake)
 
 """ DEFINIÇÃO DO LOOP """
 time = pygame.time.Clock() # Relógio do FPS.
@@ -160,15 +238,29 @@ while play_screen:
                                                                 game_mode = False
                                                                 play_screen = False
                                                         
-                                                        if pygame.key.get_pressed()[K_w]: # UP
-                                                            axis_y -= 10 
-                                                        if pygame.key.get_pressed()[K_s]: # DOWN
-                                                            axis_y += 10 
-                                                        if pygame.key.get_pressed()[K_d]: # RIGHT
-                                                            axis_x += 10 
-                                                        if pygame.key.get_pressed()[K_a]: # LEFT
-                                                            axis_x -= 10
+                                                            if choice.type == KEYDOWN:
+                                                                if choice.key == pygame.K_UP:
+                                                                    snake.up()
+                                                                if choice.key == pygame.K_DOWN:
+                                                                    snake.down()
+                                                                if choice.key == pygame.K_RIGHT:
+                                                                    snake.right()
+                                                                if choice.key == pygame.K_LEFT:
+                                                                    snake.left()
 
+                                                            if choice.type == KEYDOWN:
+                                                                if choice.key == K_w:
+                                                                    snake.up()
+                                                                    #y -= 20 #UP
+                                                                if choice.key == K_s:
+                                                                    snake.down()
+                                                                    #y += 20 #DOWN
+                                                                if choice.key == K_d:
+                                                                    snake.right()
+                                                                    #x += 20 #RIGHT
+                                                                if choice.key == K_a:
+                                                                    snake.left()
+                                                                    #x -= 20 #LEFT
 
                                                         if axis_x + tamanho > length:
                                                             game_over = True
@@ -181,9 +273,11 @@ while play_screen:
 
                                                         gamescreen.blit(floresta, (0,0))
                                                         gamescreen.blit(ftext9, (70,30))
-                                                        circle = pygame.draw.circle(gamescreen, (230,0,210), (axis_x, axis_y) , 80)
 
-                                                        pygame.display.update()
+                                                        all.draw(gamescreen)
+                                                        all.update()
+                                                        
+                                                        pygame.display.flip()
 
                                                     """ LOOP DO GAME OVER """
                                                     while game_over:
@@ -225,8 +319,10 @@ while play_screen:
                                                                 if x > 395 and y > 290 and x < 625 and y < 370:
                                                                     OFF = True
                                                                     game_over = False
-                                                                    axis_x = randint(tamanho, (length-tamanho))
-                                                                    axis_y = randint(tamanho, (height-tamanho))
+                                                                    #axis_x = randint(tamanho, (length-tamanho))
+                                                                    #axis_y = randint(tamanho, (height-tamanho))
+                                                                    axis_x = length/2
+                                                                    axis_y = height/2
                                                                     score = 0
 
                                                                 """ BOTÃO MENU """
@@ -1084,7 +1180,7 @@ while play_screen:
                     
                     pygame.display.update()
 
-    time.tick(30) # FPS
+    time.tick(5) # FPS
     pygame.display.update()
 
 """ FINALIZAR JOGO """
