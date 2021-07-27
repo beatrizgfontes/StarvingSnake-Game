@@ -24,7 +24,7 @@ tamanho = 100
 floresta = pygame.image.load("images/Cenário Floresta3D.png")
 floresta = pygame.transform.scale(floresta,(length,height))
 
-cidade = pygame.image.load("images/cenário cidade.png")
+cidade = pygame.image.load("images/Cenário Cidade3D.png")
 cidade = pygame.transform.scale(cidade,(length,height))
 
 deserto = pygame.image.load("images/Cenário Deserto3D.png")
@@ -46,8 +46,7 @@ textfont2 = pygame.font.SysFont('arial', 100, True, True)
 textfont3 = pygame.font.SysFont('arial', 80, True, False)
 textfont4 = pygame.font.SysFont('arial', 45, True, False)
 
-""" IMPORTING THE SNAKE """
- 
+""" IMPORTANDO A COBRA """
 class Snake(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -57,7 +56,7 @@ class Snake(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 520,500
+        self.rect.topleft = 565,0
         
         self.above = False
         self.below = False
@@ -121,6 +120,155 @@ class Snake(pygame.sprite.Sprite):
 all = pygame.sprite.Group()
 snake = Snake()
 all.add(snake)
+
+""" IMPORTANDO OS CARROS """
+class Carro1(pygame.sprite.Sprite):
+    def __init__ (self):
+        pygame.sprite.Sprite.__init__(self)
+        carro1 = pygame.image.load("images/carro1.png")
+        self.image = carro1
+        self.image = pygame.transform.scale(self.image,(400,150))
+        
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 400,300
+ 
+    def update(self):
+        if self.rect.topleft[0] > length:
+            self.rect.x = 0
+        self.rect.x += 20
+ 
+obstaculos_cidade = pygame.sprite.Group()
+car1 = Carro1()
+obstaculos_cidade.add(car1)
+
+class Carro2(pygame.sprite.Sprite):
+    def __init__ (self):
+        pygame.sprite.Sprite.__init__(self)
+        carro2 = pygame.image.load("images/carro2.png")
+        self.image = carro2
+        self.image = pygame.transform.scale(self.image,(400,150))
+        
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 400,420
+ 
+    def update(self):
+        if self.rect.topleft[0] > length:
+            self.rect.x = 0
+        self.rect.x += 30
+ 
+car2 = Carro2()
+obstaculos_cidade.add(car2)
+
+""" IMPORTANDO PESSOA E GATO """
+class People(pygame.sprite.Sprite):
+    def __init__ (self):
+        pygame.sprite.Sprite.__init__(self)
+        self.pessoa = [pygame.image.load("images/pessoa2.png"),pygame.image.load("images/pessoa3.png"),pygame.image.load("images/pessoa4.png"),pygame.image.load("images/pessoa5.png")]
+        self.currently = 0
+        self.image = self.pessoa[self.currently]
+        self.image = pygame.transform.scale(self.image,(150,200))
+        
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 0,430
+ 
+    def update(self):
+        self.currently = self.currently + 1
+        if self.rect.topright[0] < 0:
+            self.rect.x = length
+        self.rect.x -= 20
+ 
+        if self.currently >= len(self.pessoa):
+            self.currently = 0
+        self.image = self.pessoa[self.currently]
+        self.image = pygame.transform.scale(self.image,(150,200))
+ 
+people = People()
+obstaculos_cidade.add(people)
+ 
+class Gato(pygame.sprite.Sprite):
+    def __init__ (self):
+        pygame.sprite.Sprite.__init__(self)
+        self.gato = [pygame.image.load("images/gato0.png"),pygame.image.load("images/gato1.png"),pygame.image.load("images/gato2.png")]
+        self.currently = 0
+        self.image = self.gato[self.currently]
+        self.image = pygame.transform.scale(self.image,(33*2,33*2))
+        
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 230,230
+ 
+    def update(self):
+        self.currently = self.currently + 1
+        if self.rect.topright[0] > length:
+            self.rect.x = 0
+        self.rect.x += 20
+ 
+        if self.currently >= len(self.gato):
+            self.currently = 0
+        self.image = self.gato[self.currently]
+        self.image = pygame.transform.scale(self.image,(33*2,33*2))
+ 
+gato = Gato()
+obstaculos_cidade.add(gato)
+
+""" IMPORTANDO MAÇÃ """
+class Maca1(pygame.sprite.Sprite):
+    def __init__ (self):
+        pygame.sprite.Sprite.__init__(self)
+        maca1 = pygame.image.load("images/maca1.png")
+        self.image = maca1
+        self.image = pygame.transform.scale(self.image,(25*2,25*2))
+        
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 400,420
+ 
+    def update(self):
+        if self.rect.topleft[0] > length:
+            self.rect.x = 0
+        #self.rect.x += 30
+
+gp_maca = pygame.sprite.Group()
+apple1 = Maca1()
+gp_maca.add(apple1)
+
+""" IMPORTANDO O SAPO """
+class Sapo1(pygame.sprite.Sprite):
+    def __init__ (self):
+        pygame.sprite.Sprite.__init__(self)
+        sapo1 = pygame.image.load("images/sapo1.png")
+        self.image = sapo1
+        self.image = pygame.transform.scale(self.image,(25*2,25*2))
+        
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 400,420
+ 
+    def update(self):
+        if self.rect.topleft[0] > length:
+            self.rect.x = 0
+        #self.rect.x += 30
+
+gp_sapo = pygame.sprite.Group()
+frog1 = Sapo1()
+gp_sapo.add(frog1)
+
+""" IMPORTANDO O RATO """
+class Rato1(pygame.sprite.Sprite):
+    def __init__ (self):
+        pygame.sprite.Sprite.__init__(self)
+        rato1 = pygame.image.load("images/rato1.png")
+        self.image = rato1
+        self.image = pygame.transform.scale(self.image,(25*2,25*2))
+        
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 400,420
+ 
+    def update(self):
+        if self.rect.topleft[0] > length:
+            self.rect.x = 0
+        #self.rect.x += 30
+
+gp_rato = pygame.sprite.Group()
+rat1 = Rato1()
+gp_rato.add(rat1)
 
 """ DEFINIÇÃO DO LOOP """
 time = pygame.time.Clock() # Relógio do FPS.
@@ -340,6 +488,7 @@ while play_screen:
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     if OFF:
+                                                        time.tick(10)
                                                         gamescreen.fill(white)
                                                         text9 = f"Score: {score}"
                                                         ftext9 = textfont1.render(text9, True, black)
@@ -351,30 +500,68 @@ while play_screen:
                                                                 game_mode = False
                                                                 play_screen = False
                                                         
-                                                        if pygame.key.get_pressed()[K_w]: # UP
-                                                            axis_y -= 10 
-                                                        if pygame.key.get_pressed()[K_s]: # DOWN
-                                                            axis_y += 10 
-                                                        if pygame.key.get_pressed()[K_d]: # RIGHT
-                                                            axis_x += 10 
-                                                        if pygame.key.get_pressed()[K_a]: # LEFT
-                                                            axis_x -= 10
+                                                            if choice.type == KEYDOWN:
+                                                                if choice.key == pygame.K_UP:
+                                                                    snake.up()
+                                                                if choice.key == pygame.K_DOWN:
+                                                                    snake.down()
+                                                                if choice.key == pygame.K_RIGHT:
+                                                                    snake.right()
+                                                                if choice.key == pygame.K_LEFT:
+                                                                    snake.left()
+                                                    
+                                                            """if pygame.key.get_pressed()[K_w]:
+                                                                snake.up()
+                                                            if pygame.key.get_pressed()[K_s]:
+                                                                snake.down()
+                                                            if pygame.key.get_pressed()[K_d]:
+                                                                snake.right()
+                                                            if pygame.key.get_pressed()[K_a]:
+                                                                snake.left()"""
+                                                            
+                                                            if choice.type == KEYDOWN:
+                                                                if choice.key == K_w:
+                                                                    snake.up()
+                                                                    #y -= 20 #UP
+                                                                if choice.key == K_s:
+                                                                    snake.down()
+                                                                    #y += 20 #DOWN
+                                                                if choice.key == K_d:
+                                                                    snake.right()
+                                                                    #x += 20 #RIGHT
+                                                                if choice.key == K_a:
+                                                                    snake.left()
+                                                                    #x -= 20 #LEFT
+                                                    
+                                                        gamescreen.blit(cidade,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
+                                                        all.draw(gamescreen)
+                                                        all.update()
 
+                                                        obstaculos_cidade.draw(gamescreen)
+                                                        obstaculos_cidade.update()
 
-                                                        if axis_x + tamanho > length:
+                                                        gp_maca.draw(gamescreen)
+                                                        gp_maca.update()
+
+                                                        gp_rato.draw(gamescreen)
+                                                        gp_rato.update()
+
+                                                        gp_sapo.draw(gamescreen)
+                                                        gp_sapo.update()
+
+                                                        gamescreen.blit(ftext9, (70,30))
+                                                    
+                                                        pygame.display.flip()
+
+                                                        '''if axis_x + tamanho > length:
                                                             game_over = True
                                                         if axis_x < 0:
                                                             game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
                                                         if axis_y + tamanho > height:
                                                             game_over = True
                                                         if axis_y < 0:
-                                                            game_over = True
+                                                            game_over = True'''
 
-                                                        gamescreen.blit(cidade, (0,0))
-                                                        gamescreen.blit(ftext9, (70,30))
-                                                        pygame.draw.circle(gamescreen, (230,0,210), (axis_x, axis_y) , 80)
-
-                                                        pygame.display.update()
 
                                                     """ LOOP DO GAME OVER """
                                                     while game_over:
@@ -665,6 +852,7 @@ while play_screen:
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     if OFF:
+                                                        time.tick(15)
                                                         gamescreen.fill(white)
                                                         text9 = f"Score: {score}"
                                                         ftext9 = textfont1.render(text9, True, black)
@@ -676,30 +864,56 @@ while play_screen:
                                                                 game_mode = False
                                                                 play_screen = False
                                                         
-                                                        if pygame.key.get_pressed()[K_w]: # UP
-                                                            axis_y -= 10 
-                                                        if pygame.key.get_pressed()[K_s]: # DOWN
-                                                            axis_y += 10 
-                                                        if pygame.key.get_pressed()[K_d]: # RIGHT
-                                                            axis_x += 10 
-                                                        if pygame.key.get_pressed()[K_a]: # LEFT
-                                                            axis_x -= 10
+                                                            if choice.type == KEYDOWN:
+                                                                if choice.key == pygame.K_UP:
+                                                                    snake.up()
+                                                                if choice.key == pygame.K_DOWN:
+                                                                    snake.down()
+                                                                if choice.key == pygame.K_RIGHT:
+                                                                    snake.right()
+                                                                if choice.key == pygame.K_LEFT:
+                                                                    snake.left()
+                                                    
+                                                            """if pygame.key.get_pressed()[K_w]:
+                                                                snake.up()
+                                                            if pygame.key.get_pressed()[K_s]:
+                                                                snake.down()
+                                                            if pygame.key.get_pressed()[K_d]:
+                                                                snake.right()
+                                                            if pygame.key.get_pressed()[K_a]:
+                                                                snake.left()"""
+                                                            
+                                                            if choice.type == KEYDOWN:
+                                                                if choice.key == K_w:
+                                                                    snake.up()
+                                                                    #y -= 20 #UP
+                                                                if choice.key == K_s:
+                                                                    snake.down()
+                                                                    #y += 20 #DOWN
+                                                                if choice.key == K_d:
+                                                                    snake.right()
+                                                                    #x += 20 #RIGHT
+                                                                if choice.key == K_a:
+                                                                    snake.left()
+                                                                    #x -= 20 #LEFT
+                                                    
+                                                        gamescreen.blit(cidade,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
+                                                        all.draw(gamescreen)
+                                                        all.update()
+                                                        obstaculos_cidade.draw(gamescreen)
+                                                        obstaculos_cidade.update()
+                                                        gamescreen.blit(ftext9, (70,30))
+                                                    
+                                                        pygame.display.flip()
 
-
-                                                        if axis_x + tamanho > length:
+                                                        '''if axis_x + tamanho > length:
                                                             game_over = True
                                                         if axis_x < 0:
                                                             game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
                                                         if axis_y + tamanho > height:
                                                             game_over = True
                                                         if axis_y < 0:
-                                                            game_over = True
-
-                                                        gamescreen.blit(cidade, (0,0))
-                                                        gamescreen.blit(ftext9, (70,30))
-                                                        pygame.draw.circle(gamescreen, (230,0,210), (axis_x, axis_y) , 80)
-
-                                                        pygame.display.update()
+                                                            game_over = True'''
 
                                                     """ LOOP DO GAME OVER """
                                                     while game_over:
@@ -991,6 +1205,7 @@ while play_screen:
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     if OFF:
+                                                        time.tick(20)
                                                         gamescreen.fill(white)
                                                         text9 = f"Score: {score}"
                                                         ftext9 = textfont1.render(text9, True, black)
@@ -1002,30 +1217,56 @@ while play_screen:
                                                                 game_mode = False
                                                                 play_screen = False
                                                         
-                                                        if pygame.key.get_pressed()[K_w]: # UP
-                                                            axis_y -= 10 
-                                                        if pygame.key.get_pressed()[K_s]: # DOWN
-                                                            axis_y += 10 
-                                                        if pygame.key.get_pressed()[K_d]: # RIGHT
-                                                            axis_x += 10 
-                                                        if pygame.key.get_pressed()[K_a]: # LEFT
-                                                            axis_x -= 10
+                                                            if choice.type == KEYDOWN:
+                                                                if choice.key == pygame.K_UP:
+                                                                    snake.up()
+                                                                if choice.key == pygame.K_DOWN:
+                                                                    snake.down()
+                                                                if choice.key == pygame.K_RIGHT:
+                                                                    snake.right()
+                                                                if choice.key == pygame.K_LEFT:
+                                                                    snake.left()
+                                                    
+                                                            """if pygame.key.get_pressed()[K_w]:
+                                                                snake.up()
+                                                            if pygame.key.get_pressed()[K_s]:
+                                                                snake.down()
+                                                            if pygame.key.get_pressed()[K_d]:
+                                                                snake.right()
+                                                            if pygame.key.get_pressed()[K_a]:
+                                                                snake.left()"""
+                                                            
+                                                            if choice.type == KEYDOWN:
+                                                                if choice.key == K_w:
+                                                                    snake.up()
+                                                                    #y -= 20 #UP
+                                                                if choice.key == K_s:
+                                                                    snake.down()
+                                                                    #y += 20 #DOWN
+                                                                if choice.key == K_d:
+                                                                    snake.right()
+                                                                    #x += 20 #RIGHT
+                                                                if choice.key == K_a:
+                                                                    snake.left()
+                                                                    #x -= 20 #LEFT
+                                                    
+                                                        gamescreen.blit(cidade,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
+                                                        all.draw(gamescreen)
+                                                        all.update()
+                                                        obstaculos_cidade.draw(gamescreen)
+                                                        obstaculos_cidade.update()
+                                                        gamescreen.blit(ftext9, (70,30))
+                                                    
+                                                        pygame.display.flip()
 
-
-                                                        if axis_x + tamanho > length:
+                                                        '''if axis_x + tamanho > length:
                                                             game_over = True
                                                         if axis_x < 0:
                                                             game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
                                                         if axis_y + tamanho > height:
                                                             game_over = True
                                                         if axis_y < 0:
-                                                            game_over = True
-
-                                                        gamescreen.blit(cidade, (0,0))
-                                                        gamescreen.blit(ftext9, (70,30))
-                                                        pygame.draw.circle(gamescreen, (230,0,210), (axis_x, axis_y) , 80)
-
-                                                        pygame.display.update()
+                                                            game_over = True'''
 
                                                     """ LOOP DO GAME OVER """
                                                     while game_over:
@@ -1180,7 +1421,7 @@ while play_screen:
                     
                     pygame.display.update()
 
-    time.tick(5) # FPS
+    time.tick(0.5) # FPS
     pygame.display.update()
 
 """ FINALIZAR JOGO """
