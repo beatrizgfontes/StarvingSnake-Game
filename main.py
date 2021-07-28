@@ -46,13 +46,94 @@ textfont2 = pygame.font.SysFont('arial', 100, True, True)
 textfont3 = pygame.font.SysFont('arial', 80, True, False)
 textfont4 = pygame.font.SysFont('arial', 45, True, False)
 
-""" IMPORTANDO A COBRA """
-class Snake(pygame.sprite.Sprite):
+""" IMPORTANDO COBRA_FLORESTA """
+class Snake1(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.snakes = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
+        self.snakes1 = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
         self.currently = 0
-        self.image = self.snakes[self.currently]
+        self.image = self.snakes1[self.currently]
+        self.image = pygame.transform.scale(self.image,(100,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 700,120
+        
+        self.above = False
+        self.below = False
+        self.east = False #Right
+        self.west = False #Left
+ 
+ 
+    def up(self):
+        self.above = True
+ 
+    def down(self):
+         self.below = True
+ 
+    def right(self):
+        self.east = True
+ 
+    def left(self):
+        self.west = True
+     
+ 
+    def update(self):
+        self.currently = self.currently + 1
+        if self.above == True:
+            del self.snakes1[0:4]
+            self.snakes1.append(pygame.image.load("back/snakeback_0.png"))
+            self.snakes1.append(pygame.image.load("back/snakeback_1.png"))
+            self.snakes1.append(pygame.image.load("back/snakeback_2.png"))
+            #self.snakes = [pygame.image.load("back/snakeback_0.png"),pygame.image.load("back/snakeback_1.png"),pygame.image.load("back/snakeback_2.png")]
+            self.rect.y -= 50
+            self.above = False
+                    
+        if self.below == True:
+            del self.snakes1[0:4]
+            self.snakes1.append(pygame.image.load("front/snakefront_0.png"))
+            self.snakes1.append(pygame.image.load("front/snakefront_1.png"))
+            #self.snakes = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
+            self.rect.y += 50
+            self.below = False
+ 
+        if self.east == True:
+            del self.snakes1[0:4]
+            self.snakes1.append(pygame.image.load("right/snakeright_0.png"))
+            self.snakes1.append(pygame.image.load("right/snakeright_1.png"))
+            #self.snakes = [pygame.image.load("right/snakeright_0.png"),pygame.image.load("right/snakeright_1.png")]
+            self.rect.x += 50
+            self.east = False
+ 
+        if self.west == True:
+            del self.snakes1[0:4]
+            self.snakes1.append(pygame.image.load("left/snakeleft_0.png"))
+            self.snakes1.append(pygame.image.load("left/snakeleft_1.png"))
+            #self.snakes = [pygame.image.load("left/snakeleft_0.png"),pygame.image.load("left/snakeleft_1.png")]
+            self.rect.x -= 50
+            self.west = False
+            
+        if self.currently >= len(self.snakes1):
+            self.currently = 0
+        self.image = self.snakes1[self.currently]
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+all_florest = pygame.sprite.Group()
+all_city = pygame.sprite.Group()
+all_desert = pygame.sprite.Group()
+gp_maca = pygame.sprite.Group()
+gp_lagartixa = pygame.sprite.Group()
+gp_rato = pygame.sprite.Group()
+
+snake1 = Snake1()
+all_florest.add(snake1)
+
+""" IMPORTANDO COBRA_CIDADE """
+class Snake2(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.snakes2 = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
+        self.currently = 0
+        self.image = self.snakes2[self.currently]
         self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
@@ -80,54 +161,119 @@ class Snake(pygame.sprite.Sprite):
     def update(self):
         self.currently = self.currently + 1
         if self.above == True:
-            del self.snakes[0:4]
-            self.snakes.append(pygame.image.load("back/snakeback_0.png"))
-            self.snakes.append(pygame.image.load("back/snakeback_1.png"))
-            self.snakes.append(pygame.image.load("back/snakeback_2.png"))
+            del self.snakes2[0:4]
+            self.snakes2.append(pygame.image.load("back/snakeback_0.png"))
+            self.snakes2.append(pygame.image.load("back/snakeback_1.png"))
+            self.snakes2.append(pygame.image.load("back/snakeback_2.png"))
             #self.snakes = [pygame.image.load("back/snakeback_0.png"),pygame.image.load("back/snakeback_1.png"),pygame.image.load("back/snakeback_2.png")]
             self.rect.y -= 50
             self.above = False
                     
         if self.below == True:
-            del self.snakes[0:4]
-            self.snakes.append(pygame.image.load("front/snakefront_0.png"))
-            self.snakes.append(pygame.image.load("front/snakefront_1.png"))
+            del self.snakes2[0:4]
+            self.snakes2.append(pygame.image.load("front/snakefront_0.png"))
+            self.snakes2.append(pygame.image.load("front/snakefront_1.png"))
             #self.snakes = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
             self.rect.y += 50
             self.below = False
  
         if self.east == True:
-            del self.snakes[0:4]
-            self.snakes.append(pygame.image.load("right/snakeright_0.png"))
-            self.snakes.append(pygame.image.load("right/snakeright_1.png"))
+            del self.snakes2[0:4]
+            self.snakes2.append(pygame.image.load("right/snakeright_0.png"))
+            self.snakes2.append(pygame.image.load("right/snakeright_1.png"))
             #self.snakes = [pygame.image.load("right/snakeright_0.png"),pygame.image.load("right/snakeright_1.png")]
             self.rect.x += 50
             self.east = False
  
         if self.west == True:
-            del self.snakes[0:4]
-            self.snakes.append(pygame.image.load("left/snakeleft_0.png"))
-            self.snakes.append(pygame.image.load("left/snakeleft_1.png"))
+            del self.snakes2[0:4]
+            self.snakes2.append(pygame.image.load("left/snakeleft_0.png"))
+            self.snakes2.append(pygame.image.load("left/snakeleft_1.png"))
             #self.snakes = [pygame.image.load("left/snakeleft_0.png"),pygame.image.load("left/snakeleft_1.png")]
             self.rect.x -= 50
             self.west = False
             
-        if self.currently >= len(self.snakes):
+        if self.currently >= len(self.snakes2):
             self.currently = 0
-        self.image = self.snakes[self.currently]
+        self.image = self.snakes2[self.currently]
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+snake2 = Snake2()
+all_city.add(snake2)
+
+""" IMPORTANDO COBRA_DESERTO """
+class Snake3(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.snakes3 = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
+        self.currently = 0
+        self.image = self.snakes3[self.currently]
         self.image = pygame.transform.scale(self.image,(100,100))
  
-all_florest = pygame.sprite.Group()
-all_city = pygame.sprite.Group()
-all_desert = pygame.sprite.Group()
-gp_maca = pygame.sprite.Group()
-gp_lagartixa = pygame.sprite.Group()
-gp_rato = pygame.sprite.Group()
-
-snake = Snake()
-all_florest.add(snake)
-all_city.add(snake)
-all_desert.add(snake)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 650,50
+        
+        self.above = False
+        self.below = False
+        self.east = False #Right
+        self.west = False #Left
+ 
+ 
+    def up(self):
+        self.above = True
+ 
+    def down(self):
+         self.below = True
+ 
+    def right(self):
+        self.east = True
+ 
+    def left(self):
+        self.west = True
+     
+ 
+    def update(self):
+        self.currently = self.currently + 1
+        if self.above == True:
+            del self.snakes3[0:4]
+            self.snakes3.append(pygame.image.load("back/snakeback_0.png"))
+            self.snakes3.append(pygame.image.load("back/snakeback_1.png"))
+            self.snakes3.append(pygame.image.load("back/snakeback_2.png"))
+            #self.snakes = [pygame.image.load("back/snakeback_0.png"),pygame.image.load("back/snakeback_1.png"),pygame.image.load("back/snakeback_2.png")]
+            self.rect.y -= 50
+            self.above = False
+                    
+        if self.below == True:
+            del self.snakes3[0:4]
+            self.snakes3.append(pygame.image.load("front/snakefront_0.png"))
+            self.snakes3.append(pygame.image.load("front/snakefront_1.png"))
+            #self.snakes = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
+            self.rect.y += 50
+            self.below = False
+ 
+        if self.east == True:
+            del self.snakes3[0:4]
+            self.snakes3.append(pygame.image.load("right/snakeright_0.png"))
+            self.snakes3.append(pygame.image.load("right/snakeright_1.png"))
+            #self.snakes = [pygame.image.load("right/snakeright_0.png"),pygame.image.load("right/snakeright_1.png")]
+            self.rect.x += 50
+            self.east = False
+ 
+        if self.west == True:
+            del self.snakes3[0:4]
+            self.snakes3.append(pygame.image.load("left/snakeleft_0.png"))
+            self.snakes3.append(pygame.image.load("left/snakeleft_1.png"))
+            #self.snakes = [pygame.image.load("left/snakeleft_0.png"),pygame.image.load("left/snakeleft_1.png")]
+            self.rect.x -= 50
+            self.west = False
+            
+        if self.currently >= len(self.snakes3):
+            self.currently = 0
+        self.image = self.snakes3[self.currently]
+        self.image = pygame.transform.scale(self.image,(100,100))
+        
+snake3 = Snake3()
+all_desert.add(snake3)
 
 """ IMPORTANDO MAÇÃ """
 class Maca1(pygame.sprite.Sprite):
@@ -151,7 +297,7 @@ all_city.add(apple1)
 all_desert.add(apple1)
 gp_maca.add(apple1)
 
-""" IMPORTANDO O LAGARTIXA """
+""" IMPORTANDO LAGARTIXA """
 class Lagartixa1(pygame.sprite.Sprite):
     def __init__ (self):
         pygame.sprite.Sprite.__init__(self)
@@ -173,7 +319,7 @@ all_city.add(gecko1)
 all_desert.add(gecko1)
 gp_lagartixa.add(gecko1)
 
-""" IMPORTANDO O RATO """
+""" IMPORTANDO RATO """
 class Rato1(pygame.sprite.Sprite):
     def __init__ (self):
         pygame.sprite.Sprite.__init__(self)
@@ -195,7 +341,373 @@ all_city.add(rat1)
 all_desert.add(rat1)
 gp_rato.add(rat1)
 
-""" IMPORTANDO OS CARROS """
+""" IMPORTANDO ÁRVORES """
+class Arvore1(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arvore1 = pygame.image.load("images/arvore1.png")
+        self.image = self.arvore1
+        self.image = pygame.transform.scale(self.image,(300,400))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 0,300
+ 
+obstaculos_floresta = pygame.sprite.Group()
+arvore1 = Arvore1()
+all_florest.add(arvore1)
+obstaculos_floresta.add(arvore1)
+ 
+class Arvore2(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arvore2 = pygame.image.load("images/arvore1.png")
+        self.image = self.arvore2
+        self.image = pygame.transform.scale(self.image,(300,400))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 1000,0
+ 
+arvore2 = Arvore2()
+all_florest.add(arvore2)
+obstaculos_floresta.add(arvore2)
+ 
+""" IMPORTANDO ARBUSTOS """
+class Arbusto1(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto1 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto1
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 175,545
+ 
+arbusto1 = Arbusto1()
+all_florest.add(arbusto1)
+obstaculos_floresta.add(arbusto1)
+ 
+class Arbusto2(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto2 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto2
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 300,545
+ 
+arbusto2 = Arbusto2()
+all_florest.add(arbusto2)
+obstaculos_floresta.add(arbusto2)
+ 
+class Arbusto3(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto3 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto3
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 425,545
+ 
+arbusto3 = Arbusto3()
+all_florest.add(arbusto3)
+obstaculos_floresta.add(arbusto3)
+ 
+class Arbusto4(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto4 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto4
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 550,545
+ 
+arbusto4 = Arbusto4()
+all_florest.add(arbusto4)
+obstaculos_floresta.add(arbusto4)
+ 
+class Arbusto5(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto5 = pygame.image.load("images/arbusto2.png")
+        self.image = self.arbusto5
+        self.image = pygame.transform.scale(self.image,(100,150))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 0,0
+ 
+arbusto5 = Arbusto5()
+all_florest.add(arbusto5)
+obstaculos_floresta.add(arbusto5)
+ 
+class Arbusto6(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto6 = pygame.image.load("images/arbusto2.png")
+        self.image = self.arbusto6
+        self.image = pygame.transform.scale(self.image,(100,150))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 0,125
+ 
+arbusto6 = Arbusto6()
+all_florest.add(arbusto6)
+obstaculos_floresta.add(arbusto6)
+ 
+class Arbusto7(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto7 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto7
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 500,0
+ 
+arbusto7 = Arbusto7()
+all_florest.add(arbusto7)
+obstaculos_floresta.add(arbusto7)
+ 
+class Arbusto8(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto8 = pygame.image.load("images/arbusto2.png")
+        self.image = self.arbusto8
+        self.image = pygame.transform.scale(self.image,(100,150))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 1200,505
+ 
+arbusto8 = Arbusto8()
+all_florest.add(arbusto8)
+obstaculos_floresta.add(arbusto8)
+ 
+class Arbusto9(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto9 = pygame.image.load("images/arbusto2.png")
+        self.image = self.arbusto9
+        self.image = pygame.transform.scale(self.image,(100,150))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 1200,380
+ 
+arbusto9 = Arbusto9()
+all_florest.add(arbusto9)
+obstaculos_floresta.add(arbusto9)
+ 
+class Arbusto10(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto10 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto10
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 625,0
+ 
+arbusto10 = Arbusto10()
+all_florest.add(arbusto10)
+obstaculos_floresta.add(arbusto10)
+ 
+class Arbusto11(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto11 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto11
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 675,545
+ 
+arbusto11 = Arbusto11()
+all_florest.add(arbusto11)
+obstaculos_floresta.add(arbusto11)
+ 
+class Arbusto12(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto12 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto12
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 800,545
+ 
+arbusto12 = Arbusto12()
+all_florest.add(arbusto12)
+obstaculos_floresta.add(arbusto12)
+ 
+class Arbusto13(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto13 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto13
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 925,545
+ 
+arbusto13 = Arbusto13()
+all_florest.add(arbusto13)
+obstaculos_floresta.add(arbusto13)
+ 
+class Arbusto14(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto14 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto14
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 1050,545
+ 
+arbusto14 = Arbusto14()
+all_florest.add(arbusto14)
+obstaculos_floresta.add(arbusto14)
+ 
+class Arbusto15(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto15 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto15
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 750,0
+ 
+arbusto15 = Arbusto15()
+all_florest.add(arbusto15)
+obstaculos_floresta.add(arbusto15)
+ 
+class Arbusto16(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto16 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto16
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 750,0
+ 
+arbusto16 = Arbusto16()
+all_florest.add(arbusto16)
+obstaculos_floresta.add(arbusto16)
+ 
+class Arbusto17(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto17 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto17
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 875,0
+ 
+arbusto17 = Arbusto17()
+all_florest.add(arbusto17)
+obstaculos_floresta.add(arbusto17)
+ 
+class Arbusto18(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto18 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto18
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 375,0
+ 
+arbusto18 = Arbusto18()
+all_florest.add(arbusto18)
+obstaculos_floresta.add(arbusto18)
+ 
+class Arbusto19(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto19 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto19
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 250,0
+ 
+arbusto19 = Arbusto19()
+all_florest.add(arbusto19)
+obstaculos_floresta.add(arbusto19)
+ 
+class Arbusto20(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.arbusto20 = pygame.image.load("images/arbusto.png")
+        self.image = self.arbusto20
+        self.image = pygame.transform.scale(self.image,(150,100))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 125,0
+ 
+arbusto20 = Arbusto20()
+all_florest.add(arbusto20)
+obstaculos_floresta.add(arbusto20)
+ 
+""" IMPORTANDO PÁSSAROS """
+class Bird2(pygame.sprite.Sprite):
+    def __init__ (self):
+        pygame.sprite.Sprite.__init__(self)
+        self.bird2 = [pygame.image.load("images/passaro2.1.png"),pygame.image.load("images/passaro2.2.png"),pygame.image.load("images/passaro2.3.png"),pygame.image.load("images/passaro2.4.png"),pygame.image.load("images/passaro2.5.png")]
+        self.currently = 0
+        self.image = self.bird2[self.currently]
+        self.image = pygame.transform.scale(self.image,(150,200))
+        
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 0,220
+ 
+    def update(self):
+        self.currently +=1
+        if self.rect.topleft[0] > length:
+            self.rect.x = 0
+        self.rect.x += 35
+ 
+        if self.currently >= len(self.bird2):
+            self.currently = 0
+            
+        self.image = self.bird2[self.currently]
+        self.image = pygame.transform.scale(self.image,(150,200))
+ 
+bird2 = Bird2()
+all_florest.add(bird2)
+obstaculos_floresta.add(bird2)
+ 
+class Bird1(pygame.sprite.Sprite):
+    def __init__ (self):
+        pygame.sprite.Sprite.__init__(self)
+        self.bird1 = [pygame.image.load("images/passaro1.1.png"),pygame.image.load("images/passaro1.2.png"),pygame.image.load("images/passaro1.3.png"),pygame.image.load("images/passaro1.4.png"),pygame.image.load("images/passaro1.5.png")]
+        self.currently = 0
+        self.image = self.bird1[self.currently]
+        self.image = pygame.transform.scale(self.image,(150,200))
+        
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 0,350
+ 
+    def update(self):
+        self.currently +=1
+        if self.rect.topright[0] < 0:
+            self.rect.x = length
+        self.rect.x -= 20
+ 
+        if self.currently >= len(self.bird1):
+            self.currently = 0
+            
+        self.image = self.bird1[self.currently]
+        self.image = pygame.transform.scale(self.image,(150,200))
+ 
+bird1 = Bird1()
+all_florest.add(bird1)
+obstaculos_floresta.add(bird1)
+
+""" IMPORTANDO CARROS """
 class Carro1(pygame.sprite.Sprite):
     def __init__ (self):
         pygame.sprite.Sprite.__init__(self)
@@ -576,67 +1088,70 @@ while play_screen:
 
                                                 """ LOOP DO JOGO """
                                                 while OFF:
-                                                    if OFF:
-                                                        gamescreen.fill(white)
-                                                        text9 = f"Score: {score}"
-                                                        ftext9 = textfont1.render(text9, True, black)
+                                                    time.tick(5)
+                                                    gamescreen.fill(white)
+                                                    text9 = f"Score: {score}"
+                                                    ftext9 = textfont1.render(text9, True, black)
 
-                                                        for choice in pygame.event.get():
-                                                            if choice.type == QUIT:
-                                                                OFF = False
-                                                                game_scenery = False
-                                                                game_mode = False
-                                                                play_screen = False
+                                                    for choice in pygame.event.get():
+                                                        if choice.type == QUIT:
+                                                            OFF = False
+                                                            game_scenery = False
+                                                            game_mode = False
+                                                            play_screen = False
                                                         
-                                                            if choice.type == KEYDOWN:
-                                                                if choice.key == pygame.K_UP:
-                                                                    snake.up()
-                                                                if choice.key == pygame.K_DOWN:
-                                                                    snake.down()
-                                                                if choice.key == pygame.K_RIGHT:
-                                                                    snake.right()
-                                                                if choice.key == pygame.K_LEFT:
-                                                                    snake.left()
+                                                        if choice.type == KEYDOWN:
+                                                            if choice.key == pygame.K_UP:
+                                                                snake1.up()
+                                                            if choice.key == pygame.K_DOWN:
+                                                                snake1.down()
+                                                            if choice.key == pygame.K_RIGHT:
+                                                                snake1.right()
+                                                            if choice.key == pygame.K_LEFT:
+                                                                snake1.left()
+                                                
+                                                        if choice.type == KEYDOWN:
+                                                            if choice.key == K_w:
+                                                                snake1.up()
+                                                                #y -= 20 #UP
+                                                            if choice.key == K_s:
+                                                                snake1.down()
+                                                                #y += 20 #DOWN
+                                                            if choice.key == K_d:
+                                                                snake1.right()
+                                                                #x += 20 #RIGHT
+                                                            if choice.key == K_a:
+                                                                snake1.left()
+                                                                #x -= 20 #LEFT
 
-                                                            if choice.type == KEYDOWN:
-                                                                if choice.key == K_w:
-                                                                    snake.up()
-                                                                    #y -= 20 #UP
-                                                                if choice.key == K_s:
-                                                                    snake.down()
-                                                                    #y += 20 #DOWN
-                                                                if choice.key == K_d:
-                                                                    snake.right()
-                                                                    #x += 20 #RIGHT
-                                                                if choice.key == K_a:
-                                                                    snake.left()
-                                                                    #x -= 20 #LEFT
+                                                    obstacle_collides1 = pygame.sprite.spritecollide(snake1,obstaculos_floresta,False)
+                                                    apple_collides = pygame.sprite.spritecollide(snake1,gp_maca,False)
+                                                    gecko_collides = pygame.sprite.spritecollide(snake1,gp_lagartixa,False)
+                                                    rat_collides = pygame.sprite.spritecollide(snake1,gp_rato,False)
 
-                                                        if axis_x + tamanho > length:
-                                                            game_over = True
-                                                        if axis_x < 0:
-                                                            game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
-                                                        if axis_y + tamanho > height:
-                                                            game_over = True
-                                                        if axis_y < 0:
-                                                            game_over = True
+                                                    if apple_collides:
+                                                        score += 2
+                                                        apple1.rect.x = randrange(0,800,50)
+                                                        apple1.rect.y = randrange(0,600,50)
 
-                                                        gamescreen.blit(floresta, (0,0))
-                                                        gamescreen.blit(ftext9, (70,30))
+                                                    if gecko_collides:
+                                                        score += 5
+                                                        gecko1.rect.x = randrange(0,800,50)
+                                                        gecko1.rect.y = randrange(0,600,50)
+                                                            
+                                                    if rat_collides:
+                                                        score += 10
+                                                        rat1.rect.x = randrange(0,800,50)
+                                                        rat1.rect.y = randrange(0,600,50) 
 
-                                                        all_city.draw(gamescreen)
-                                                        all_city.update()
-                                                        
-                                                        pygame.display.flip()
-
-                                                    """ LOOP DO GAME OVER """
-                                                    while game_over:
+                                                    if obstacle_collides1:
+                                                        """ LOOP DO GAME OVER """
                                                         gamescreen.fill(forestgreen)
-                                                        
+                                                                
                                                         """ ELEMENTOS DA TELA """
                                                         text10 = ("Game Over")
                                                         ftext10 = textfont2.render(text10, True, red)
-                                                        gamescreen.blit(ftext10, (380,40))
+                                                        gamescreen.blit(ftext10, (380,40)) # Exibir o texto na tela.
 
                                                         text11 = f"Score: {score}"
                                                         ftext11 = textfont3.render(text11, True, white)
@@ -652,37 +1167,45 @@ while play_screen:
                                                         ftext13 = textfont4.render(text13, True, white)
                                                         gamescreen.blit(ftext13, (750,305))
 
-
                                                         for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
                                                             if choice.type == QUIT: # Opção para sair do jogo.
-                                                                game_over = False
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = False
                                                                 play_screen = False
 
-                                                            if choice.type == pygame.MOUSEBUTTONDOWN:
-                                                                x = pygame.mouse.get_pos()[0]
-                                                                y = pygame.mouse.get_pos()[1]
+                                                        if choice.type == pygame.MOUSEBUTTONDOWN:
+                                                            x = pygame.mouse.get_pos()[0]
+                                                            y = pygame.mouse.get_pos()[1]
 
-                                                                """ BOTÃO CONTINUAR """
-                                                                if x > 395 and y > 290 and x < 625 and y < 370:
-                                                                    OFF = True
-                                                                    game_over = False
-                                                                    #axis_x = randint(tamanho, (length-tamanho))
-                                                                    #axis_y = randint(tamanho, (height-tamanho))
-                                                                    axis_x = length/2
-                                                                    axis_y = height/2
-                                                                    score = 0
+                                                            """ BOTÃO CONTINUAR """
+                                                            if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                OFF = True
+                                                                snake1.rect.topleft = 700,120
+                                                                score = 0
 
-                                                                """ BOTÃO MENU """
-                                                                if x > 690 and y > 290 and x < 920 and y < 370:
-                                                                    game_over = False
-                                                                    OFF = False
-                                                                    game_scenery = False
-                                                                    game_mode = True
+                                                                gamescreen.blit(floresta,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
+                                                                all_florest.draw(gamescreen)
+                                                                all_florest.update()
+                                                                gamescreen.blit(ftext9, (70,30))
+                                                                    
+                                                                pygame.display.flip()
+
+                                                            """ BOTÃO MENU """
+                                                            if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                OFF = False
+                                                                game_scenery = False
+                                                                game_mode = True                                            
 
                                                         pygame.display.update()
+
+                                                    else:
+                                                        gamescreen.blit(floresta, (0,0))
+                                                        all_florest.draw(gamescreen)
+                                                        all_florest.update()
+                                                        gamescreen.blit(ftext9, (70,30))
+                                                    
+                                                        pygame.display.flip()
 
                                             """ BOTÃO CIDADE """
                                             if x > 495 and y > 360 and x < 725 and y < 440:
@@ -703,32 +1226,32 @@ while play_screen:
                                                         
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == pygame.K_UP:
-                                                                snake.up()
+                                                                snake2.up()
                                                             if choice.key == pygame.K_DOWN:
-                                                                snake.down()
+                                                                snake2.down()
                                                             if choice.key == pygame.K_RIGHT:
-                                                                snake.right()
+                                                                snake2.right()
                                                             if choice.key == pygame.K_LEFT:
-                                                                snake.left()
+                                                                snake2.left()
 
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == K_w:
-                                                                snake.up()
+                                                                snake2.up()
                                                                 #y -= 20 #UP
                                                             if choice.key == K_s:
-                                                                snake.down()
+                                                                snake2.down()
                                                                 #y += 20 #DOWN
                                                             if choice.key == K_d:
-                                                                snake.right()
+                                                                snake2.right()
                                                                 #x += 20 #RIGHT
                                                             if choice.key == K_a:
-                                                                snake.left()
+                                                                snake2.left()
                                                                 #x -= 20 #LEFT
 
-                                                    obstacle_collides2 = pygame.sprite.spritecollide(snake,obstaculos_cidade,False)
-                                                    apple_collides = pygame.sprite.spritecollide(snake,gp_maca,False)
-                                                    gecko_collides = pygame.sprite.spritecollide(snake,gp_lagartixa,False)
-                                                    rat_collides = pygame.sprite.spritecollide(snake,gp_rato,False)
+                                                    obstacle_collides2 = pygame.sprite.spritecollide(snake2,obstaculos_cidade,False)
+                                                    apple_collides = pygame.sprite.spritecollide(snake2,gp_maca,False)
+                                                    gecko_collides = pygame.sprite.spritecollide(snake2,gp_lagartixa,False)
+                                                    rat_collides = pygame.sprite.spritecollide(snake2,gp_rato,False)
 
                                                     if apple_collides:
                                                         score += 2
@@ -783,7 +1306,7 @@ while play_screen:
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
                                                                 OFF = True
-                                                                snake.rect.topleft = 565,0
+                                                                snake2.rect.topleft = 565,0
                                                                 score = 0
 
                                                                 gamescreen.blit(cidade,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
@@ -812,14 +1335,6 @@ while play_screen:
                                                         
                                                         pygame.display.flip()
 
-                                                    '''if axis_x + tamanho > length:
-                                                        game_over = True
-                                                    if axis_x < 0:
-                                                        game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
-                                                    if axis_y + tamanho > height:
-                                                            game_over = True
-                                                    if axis_y < 0:
-                                                        game_over = True'''
 
                                             """ BOTÃO DESERTO """
                                             if x > 495 and y > 490 and x < 725 and y < 570:
@@ -840,32 +1355,32 @@ while play_screen:
                                                         
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == pygame.K_UP:
-                                                                snake.up()
+                                                                snake3.up()
                                                             if choice.key == pygame.K_DOWN:
-                                                                snake.down()
+                                                                snake3.down()
                                                             if choice.key == pygame.K_RIGHT:
-                                                                snake.right()
+                                                                snake3.right()
                                                             if choice.key == pygame.K_LEFT:
-                                                                snake.left()
+                                                                snake3.left()
                                                 
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == K_w:
-                                                                snake.up()
+                                                                snake3.up()
                                                                 #y -= 20 #UP
                                                             if choice.key == K_s:
-                                                                snake.down()
+                                                                snake3.down()
                                                                 #y += 20 #DOWN
                                                             if choice.key == K_d:
-                                                                snake.right()
+                                                                snake3.right()
                                                                 #x += 20 #RIGHT
                                                             if choice.key == K_a:
-                                                                snake.left()
+                                                                snake3.left()
                                                                 #x -= 20 #LEFT
                                                 
-                                                    obstacle_collides3 = pygame.sprite.spritecollide(snake,obstaculos_deserto,False)
-                                                    apple_collides = pygame.sprite.spritecollide(snake,gp_maca,False)
-                                                    gecko_collides = pygame.sprite.spritecollide(snake,gp_lagartixa,False)
-                                                    rat_collides = pygame.sprite.spritecollide(snake,gp_rato,False)
+                                                    obstacle_collides3 = pygame.sprite.spritecollide(snake3,obstaculos_deserto,False)
+                                                    apple_collides = pygame.sprite.spritecollide(snake3,gp_maca,False)
+                                                    gecko_collides = pygame.sprite.spritecollide(snake3,gp_lagartixa,False)
+                                                    rat_collides = pygame.sprite.spritecollide(snake3,gp_rato,False)
 
                                                     if apple_collides:
                                                         score += 2
@@ -920,7 +1435,7 @@ while play_screen:
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
                                                                 OFF = True
-                                                                snake.rect.topleft = 650,50
+                                                                snake3.rect.topleft = 650,50
                                                                 score = 0
 
                                                                 gamescreen.blit(deserto,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
@@ -991,47 +1506,67 @@ while play_screen:
 
                                                 """ LOOP DO JOGO """
                                                 while OFF:
-                                                    if OFF:
-                                                        gamescreen.fill(white)
-                                                        text9 = f"Score: {score}"
-                                                        ftext9 = textfont1.render(text9, True, black)
+                                                    time.tick(10)
+                                                    gamescreen.fill(white)
+                                                    text9 = f"Score: {score}"
+                                                    ftext9 = textfont1.render(text9, True, black)
 
-                                                        for choice in pygame.event.get():
-                                                            if choice.type == QUIT:
-                                                                OFF = False
-                                                                game_scenery = False
-                                                                game_mode = False
-                                                                play_screen = False
+                                                    for choice in pygame.event.get():
+                                                        if choice.type == QUIT:
+                                                            OFF = False
+                                                            game_scenery = False
+                                                            game_mode = False
+                                                            play_screen = False
                                                         
-                                                        if pygame.key.get_pressed()[K_w]: # UP
-                                                            axis_y -= 10 
-                                                        if pygame.key.get_pressed()[K_s]: # DOWN
-                                                            axis_y += 10 
-                                                        if pygame.key.get_pressed()[K_d]: # RIGHT
-                                                            axis_x += 10 
-                                                        if pygame.key.get_pressed()[K_a]: # LEFT
-                                                            axis_x -= 10
+                                                        if choice.type == KEYDOWN:
+                                                            if choice.key == pygame.K_UP:
+                                                                snake1.up()
+                                                            if choice.key == pygame.K_DOWN:
+                                                                snake1.down()
+                                                            if choice.key == pygame.K_RIGHT:
+                                                                snake1.right()
+                                                            if choice.key == pygame.K_LEFT:
+                                                                snake1.left()
+                                                
+                                                
+                                                        if choice.type == KEYDOWN:
+                                                            if choice.key == K_w:
+                                                                snake1.up()
+                                                                #y -= 20 #UP
+                                                            if choice.key == K_s:
+                                                                snake1.down()
+                                                                #y += 20 #DOWN
+                                                            if choice.key == K_d:
+                                                                snake1.right()
+                                                                #x += 20 #RIGHT
+                                                            if choice.key == K_a:
+                                                                snake1.left()
+                                                                #x -= 20 #LEFT
+                                            
+                                                    obstacle_collides1 = pygame.sprite.spritecollide(snake1,obstaculos_floresta,False)
+                                                    apple_collides = pygame.sprite.spritecollide(snake1,gp_maca,False)
+                                                    gecko_collides = pygame.sprite.spritecollide(snake1,gp_lagartixa,False)
+                                                    rat_collides = pygame.sprite.spritecollide(snake1,gp_rato,False)
 
+                                                    if apple_collides:
+                                                        score += 2
+                                                        apple1.rect.x = randrange(0,800,50)
+                                                        apple1.rect.y = randrange(0,600,50)
 
-                                                        if axis_x + tamanho > length:
-                                                            game_over = True
-                                                        if axis_x < 0:
-                                                            game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
-                                                        if axis_y + tamanho > height:
-                                                            game_over = True
-                                                        if axis_y < 0:
-                                                            game_over = True
+                                                    if gecko_collides:
+                                                        score += 5
+                                                        gecko1.rect.x = randrange(0,800,50)
+                                                        gecko1.rect.y = randrange(0,600,50)
+                                                            
+                                                    if rat_collides:
+                                                        score += 10
+                                                        rat1.rect.x = randrange(0,800,50)
+                                                        rat1.rect.y = randrange(0,600,50) 
 
-                                                        gamescreen.blit(floresta, (0,0))
-                                                        gamescreen.blit(ftext9, (70,30))
-                                                        pygame.draw.circle(gamescreen, (230,0,210), (axis_x, axis_y) , 80)
-
-                                                        pygame.display.update()
-
-                                                    """ LOOP DO GAME OVER """
-                                                    while game_over:
+                                                    if obstacle_collides1:
+                                                        """ LOOP DO GAME OVER """
                                                         gamescreen.fill(forestgreen)
-                                                        
+                                                                
                                                         """ ELEMENTOS DA TELA """
                                                         text10 = ("Game Over")
                                                         ftext10 = textfont2.render(text10, True, red)
@@ -1051,35 +1586,45 @@ while play_screen:
                                                         ftext13 = textfont4.render(text13, True, white)
                                                         gamescreen.blit(ftext13, (750,305))
 
-
                                                         for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
                                                             if choice.type == QUIT: # Opção para sair do jogo.
-                                                                game_over = False
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = False
                                                                 play_screen = False
 
-                                                            if choice.type == pygame.MOUSEBUTTONDOWN:
-                                                                x = pygame.mouse.get_pos()[0]
-                                                                y = pygame.mouse.get_pos()[1]
+                                                        if choice.type == pygame.MOUSEBUTTONDOWN:
+                                                            x = pygame.mouse.get_pos()[0]
+                                                            y = pygame.mouse.get_pos()[1]
 
-                                                                """ BOTÃO CONTINUAR """
-                                                                if x > 395 and y > 290 and x < 625 and y < 370:
-                                                                    OFF = True
-                                                                    game_over = False
-                                                                    axis_x = randint(tamanho, (length-tamanho))
-                                                                    axis_y = randint(tamanho, (height-tamanho))
-                                                                    score = 0
+                                                            """ BOTÃO CONTINUAR """
+                                                            if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                OFF = True
+                                                                snake1.rect.topleft = 700,120
+                                                                score = 0
 
-                                                                """ BOTÃO MENU """
-                                                                if x > 690 and y > 290 and x < 920 and y < 370:
-                                                                    game_over = False
-                                                                    OFF = False
-                                                                    game_scenery = False
-                                                                    game_mode = True
+                                                                gamescreen.blit(floresta,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
+                                                                all_florest.draw(gamescreen)
+                                                                all_florest.update()
+                                                                gamescreen.blit(ftext9, (70,30))
+                                                                    
+                                                                pygame.display.flip()
+
+                                                            """ BOTÃO MENU """
+                                                            if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                OFF = False
+                                                                game_scenery = False
+                                                                game_mode = True                                            
 
                                                         pygame.display.update()
+
+                                                    else:
+                                                        gamescreen.blit(floresta, (0,0))
+                                                        all_florest.draw(gamescreen)
+                                                        all_florest.update()
+                                                        gamescreen.blit(ftext9, (70,30))
+                                                    
+                                                        pygame.display.flip()
 
                                             """ BOTÃO CIDADE """
                                             if x > 495 and y > 360 and x < 725 and y < 440:
@@ -1100,32 +1645,32 @@ while play_screen:
                                                         
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == pygame.K_UP:
-                                                                snake.up()
+                                                                snake2.up()
                                                             if choice.key == pygame.K_DOWN:
-                                                                snake.down()
+                                                                snake2.down()
                                                             if choice.key == pygame.K_RIGHT:
-                                                                snake.right()
+                                                                snake2.right()
                                                             if choice.key == pygame.K_LEFT:
-                                                                snake.left()
+                                                                snake2.left()
 
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == K_w:
-                                                                snake.up()
+                                                                snake2.up()
                                                                 #y -= 20 #UP
                                                             if choice.key == K_s:
-                                                                snake.down()
+                                                                snake2.down()
                                                                 #y += 20 #DOWN
                                                             if choice.key == K_d:
-                                                                snake.right()
+                                                                snake2.right()
                                                                 #x += 20 #RIGHT
                                                             if choice.key == K_a:
-                                                                snake.left()
+                                                                snake2.left()
                                                                 #x -= 20 #LEFT
 
-                                                    obstacle_collides2 = pygame.sprite.spritecollide(snake,obstaculos_cidade,False)
-                                                    apple_collides = pygame.sprite.spritecollide(snake,gp_maca,False)
-                                                    gecko_collides = pygame.sprite.spritecollide(snake,gp_lagartixa,False)
-                                                    rat_collides = pygame.sprite.spritecollide(snake,gp_rato,False)
+                                                    obstacle_collides2 = pygame.sprite.spritecollide(snake2,obstaculos_cidade,False)
+                                                    apple_collides = pygame.sprite.spritecollide(snake2,gp_maca,False)
+                                                    gecko_collides = pygame.sprite.spritecollide(snake2,gp_lagartixa,False)
+                                                    rat_collides = pygame.sprite.spritecollide(snake2,gp_rato,False)
 
                                                     if apple_collides:
                                                         score += 2
@@ -1180,7 +1725,7 @@ while play_screen:
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
                                                                 OFF = True
-                                                                snake.rect.topleft = 565,0
+                                                                snake2.rect.topleft = 565,0
                                                                 score = 0
 
                                                                 gamescreen.blit(cidade,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
@@ -1196,7 +1741,6 @@ while play_screen:
                                                                 game_scenery = False
                                                                 game_mode = True
                                                                     
-
                                                         pygame.display.update()
 
                                                     else:
@@ -1208,15 +1752,6 @@ while play_screen:
                                                         gamescreen.blit(ftext9, (70,30))
                                                         
                                                         pygame.display.flip()
-
-                                                    '''if axis_x + tamanho > length:
-                                                        game_over = True
-                                                    if axis_x < 0:
-                                                        game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
-                                                    if axis_y + tamanho > height:
-                                                            game_over = True
-                                                    if axis_y < 0:
-                                                        game_over = True'''
 
                                             """ BOTÃO DESERTO """
                                             if x > 495 and y > 490 and x < 725 and y < 570:
@@ -1237,32 +1772,32 @@ while play_screen:
                                                         
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == pygame.K_UP:
-                                                                snake.up()
+                                                                snake3.up()
                                                             if choice.key == pygame.K_DOWN:
-                                                                snake.down()
+                                                                snake3.down()
                                                             if choice.key == pygame.K_RIGHT:
-                                                                snake.right()
+                                                                snake3.right()
                                                             if choice.key == pygame.K_LEFT:
-                                                                snake.left()
+                                                                snake3.left()
                                                 
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == K_w:
-                                                                snake.up()
+                                                                snake3.up()
                                                                 #y -= 20 #UP
                                                             if choice.key == K_s:
-                                                                snake.down()
+                                                                snake3.down()
                                                                 #y += 20 #DOWN
                                                             if choice.key == K_d:
-                                                                snake.right()
+                                                                snake3.right()
                                                                 #x += 20 #RIGHT
                                                             if choice.key == K_a:
-                                                                snake.left()
+                                                                snake3.left()
                                                                 #x -= 20 #LEFT
                                                 
-                                                    obstacle_collides3 = pygame.sprite.spritecollide(snake,obstaculos_deserto,False)
-                                                    apple_collides = pygame.sprite.spritecollide(snake,gp_maca,False)
-                                                    gecko_collides = pygame.sprite.spritecollide(snake,gp_lagartixa,False)
-                                                    rat_collides = pygame.sprite.spritecollide(snake,gp_rato,False)
+                                                    obstacle_collides3 = pygame.sprite.spritecollide(snake3,obstaculos_deserto,False)
+                                                    apple_collides = pygame.sprite.spritecollide(snake3,gp_maca,False)
+                                                    gecko_collides = pygame.sprite.spritecollide(snake3,gp_lagartixa,False)
+                                                    rat_collides = pygame.sprite.spritecollide(snake3,gp_rato,False)
 
                                                     if apple_collides:
                                                         score += 2
@@ -1317,7 +1852,7 @@ while play_screen:
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
                                                                 OFF = True
-                                                                snake.rect.topleft = 650,50
+                                                                snake3.rect.topleft = 650,50
                                                                 score = 0
 
                                                                 gamescreen.blit(deserto,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
@@ -1388,47 +1923,66 @@ while play_screen:
 
                                                 """ LOOP DO JOGO """
                                                 while OFF:
-                                                    if OFF:
-                                                        gamescreen.fill(white)
-                                                        text9 = f"Score: {score}"
-                                                        ftext9 = textfont1.render(text9, True, black)
+                                                    time.tick(15)
+                                                    gamescreen.fill(white)
+                                                    text9 = f"Score: {score}"
+                                                    ftext9 = textfont1.render(text9, True, black)
 
-                                                        for choice in pygame.event.get():
-                                                            if choice.type == QUIT:
-                                                                OFF = False
-                                                                game_scenery = False
-                                                                game_mode = False
-                                                                play_screen = False
+                                                    for choice in pygame.event.get():
+                                                        if choice.type == QUIT:
+                                                            OFF = False
+                                                            game_scenery = False
+                                                            game_mode = False
+                                                            play_screen = False
                                                         
-                                                        if pygame.key.get_pressed()[K_w]: # UP
-                                                            axis_y -= 10 
-                                                        if pygame.key.get_pressed()[K_s]: # DOWN
-                                                            axis_y += 10 
-                                                        if pygame.key.get_pressed()[K_d]: # RIGHT
-                                                            axis_x += 10 
-                                                        if pygame.key.get_pressed()[K_a]: # LEFT
-                                                            axis_x -= 10
+                                                        if choice.type == KEYDOWN:
+                                                            if choice.key == pygame.K_UP:
+                                                                snake1.up()
+                                                            if choice.key == pygame.K_DOWN:
+                                                                snake1.down()
+                                                            if choice.key == pygame.K_RIGHT:
+                                                                snake1.right()
+                                                            if choice.key == pygame.K_LEFT:
+                                                                snake1.left()
+                                                
+                                                        if choice.type == KEYDOWN:
+                                                            if choice.key == K_w:
+                                                                snake1.up()
+                                                                #y -= 20 #UP
+                                                            if choice.key == K_s:
+                                                                snake1.down()
+                                                                #y += 20 #DOWN
+                                                            if choice.key == K_d:
+                                                                snake1.right()
+                                                                #x += 20 #RIGHT
+                                                            if choice.key == K_a:
+                                                                snake1.left()
+                                                                #x -= 20 #LEFT
+                                            
+                                                    obstacle_collides1 = pygame.sprite.spritecollide(snake1,obstaculos_floresta,False)
+                                                    apple_collides = pygame.sprite.spritecollide(snake1,gp_maca,False)
+                                                    gecko_collides = pygame.sprite.spritecollide(snake1,gp_lagartixa,False)
+                                                    rat_collides = pygame.sprite.spritecollide(snake1,gp_rato,False)
 
+                                                    if apple_collides:
+                                                        score += 2
+                                                        apple1.rect.x = randrange(0,800,50)
+                                                        apple1.rect.y = randrange(0,600,50)
 
-                                                        if axis_x + tamanho > length:
-                                                            game_over = True
-                                                        if axis_x < 0:
-                                                            game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
-                                                        if axis_y + tamanho > height:
-                                                            game_over = True
-                                                        if axis_y < 0:
-                                                            game_over = True
+                                                    if gecko_collides:
+                                                        score += 5
+                                                        gecko1.rect.x = randrange(0,800,50)
+                                                        gecko1.rect.y = randrange(0,600,50)
+                                                            
+                                                    if rat_collides:
+                                                        score += 10
+                                                        rat1.rect.x = randrange(0,800,50)
+                                                        rat1.rect.y = randrange(0,600,50) 
 
-                                                        gamescreen.blit(floresta, (0,0))
-                                                        gamescreen.blit(ftext9, (70,30))
-                                                        pygame.draw.circle(gamescreen, (230,0,210), (axis_x, axis_y) , 80)
-
-                                                        pygame.display.update()
-
-                                                    """ LOOP DO GAME OVER """
-                                                    while game_over:
+                                                    if obstacle_collides1:
+                                                        """ LOOP DO GAME OVER """
                                                         gamescreen.fill(forestgreen)
-                                                        
+                                                                
                                                         """ ELEMENTOS DA TELA """
                                                         text10 = ("Game Over")
                                                         ftext10 = textfont2.render(text10, True, red)
@@ -1448,35 +2002,45 @@ while play_screen:
                                                         ftext13 = textfont4.render(text13, True, white)
                                                         gamescreen.blit(ftext13, (750,305))
 
-
                                                         for choice in pygame.event.get(): # Interação com ocorrência/Definição de eventos.
                                                             if choice.type == QUIT: # Opção para sair do jogo.
-                                                                game_over = False
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = False
                                                                 play_screen = False
 
-                                                            if choice.type == pygame.MOUSEBUTTONDOWN:
-                                                                x = pygame.mouse.get_pos()[0]
-                                                                y = pygame.mouse.get_pos()[1]
+                                                        if choice.type == pygame.MOUSEBUTTONDOWN:
+                                                            x = pygame.mouse.get_pos()[0]
+                                                            y = pygame.mouse.get_pos()[1]
 
-                                                                """ BOTÃO CONTINUAR """
-                                                                if x > 395 and y > 290 and x < 625 and y < 370:
-                                                                    OFF = True
-                                                                    game_over = False
-                                                                    axis_x = randint(tamanho, (length-tamanho))
-                                                                    axis_y = randint(tamanho, (height-tamanho))
-                                                                    score = 0
+                                                            """ BOTÃO CONTINUAR """
+                                                            if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                OFF = True
+                                                                snake1.rect.topleft = 700,120
+                                                                score = 0
 
-                                                                """ BOTÃO MENU """
-                                                                if x > 690 and y > 290 and x < 920 and y < 370:
-                                                                    game_over = False
-                                                                    OFF = False
-                                                                    game_scenery = False
-                                                                    game_mode = True
+                                                                gamescreen.blit(floresta,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
+                                                                all_florest.draw(gamescreen)
+                                                                all_florest.update()
+                                                                gamescreen.blit(ftext9, (70,30))
+                                                                    
+                                                                pygame.display.flip()
 
+                                                            """ BOTÃO MENU """
+                                                            if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                OFF = False
+                                                                game_scenery = False
+                                                                game_mode = True
+                                                                
                                                         pygame.display.update()
+
+                                                    else:
+                                                        gamescreen.blit(floresta, (0,0))
+                                                        all_florest.draw(gamescreen)
+                                                        all_florest.update()
+                                                        gamescreen.blit(ftext9, (70,30))
+                                                    
+                                                        pygame.display.flip()
 
                                             """ BOTÃO CIDADE """
                                             if x > 495 and y > 360 and x < 725 and y < 440:
@@ -1497,32 +2061,32 @@ while play_screen:
                                                         
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == pygame.K_UP:
-                                                                snake.up()
+                                                                snake2.up()
                                                             if choice.key == pygame.K_DOWN:
-                                                                snake.down()
+                                                                snake2.down()
                                                             if choice.key == pygame.K_RIGHT:
-                                                                snake.right()
+                                                                snake2.right()
                                                             if choice.key == pygame.K_LEFT:
-                                                                snake.left()
+                                                                snake2.left()
 
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == K_w:
-                                                                snake.up()
+                                                                snake2.up()
                                                                 #y -= 20 #UP
                                                             if choice.key == K_s:
-                                                                snake.down()
+                                                                snake2.down()
                                                                 #y += 20 #DOWN
                                                             if choice.key == K_d:
-                                                                snake.right()
+                                                                snake2.right()
                                                                 #x += 20 #RIGHT
                                                             if choice.key == K_a:
-                                                                snake.left()
+                                                                snake2.left()
                                                                 #x -= 20 #LEFT
 
-                                                    obstacle_collides2 = pygame.sprite.spritecollide(snake,obstaculos_cidade,False)
-                                                    apple_collides = pygame.sprite.spritecollide(snake,gp_maca,False)
-                                                    gecko_collides = pygame.sprite.spritecollide(snake,gp_lagartixa,False)
-                                                    rat_collides = pygame.sprite.spritecollide(snake,gp_rato,False)
+                                                    obstacle_collides2 = pygame.sprite.spritecollide(snake2,obstaculos_cidade,False)
+                                                    apple_collides = pygame.sprite.spritecollide(snake2,gp_maca,False)
+                                                    gecko_collides = pygame.sprite.spritecollide(snake2,gp_lagartixa,False)
+                                                    rat_collides = pygame.sprite.spritecollide(snake2,gp_rato,False)
 
                                                     if apple_collides:
                                                         score += 2
@@ -1577,7 +2141,7 @@ while play_screen:
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
                                                                 OFF = True
-                                                                snake.rect.topleft = 565,0
+                                                                snake2.rect.topleft = 565,0
                                                                 score = 0
 
                                                                 gamescreen.blit(cidade,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
@@ -1596,23 +2160,12 @@ while play_screen:
                                                         pygame.display.update()
 
                                                     else:
-                                                        #all.update()
-    
                                                         gamescreen.blit(cidade,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
                                                         all_city.draw(gamescreen)
                                                         all_city.update()
                                                         gamescreen.blit(ftext9, (70,30))
                                                         
                                                         pygame.display.flip()
-
-                                                    '''if axis_x + tamanho > length:
-                                                        game_over = True
-                                                    if axis_x < 0:
-                                                        game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
-                                                    if axis_y + tamanho > height:
-                                                            game_over = True
-                                                    if axis_y < 0:
-                                                        game_over = True'''
 
                                             """ BOTÃO DESERTO """
                                             if x > 495 and y > 490 and x < 725 and y < 570:
@@ -1633,32 +2186,32 @@ while play_screen:
                                                         
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == pygame.K_UP:
-                                                                snake.up()
+                                                                snake3.up()
                                                             if choice.key == pygame.K_DOWN:
-                                                                snake.down()
+                                                                snake3.down()
                                                             if choice.key == pygame.K_RIGHT:
-                                                                snake.right()
+                                                                snake3.right()
                                                             if choice.key == pygame.K_LEFT:
-                                                                snake.left()
+                                                                snake3.left()
                                                 
                                                         if choice.type == KEYDOWN:
                                                             if choice.key == K_w:
-                                                                snake.up()
+                                                                snake3.up()
                                                                 #y -= 20 #UP
                                                             if choice.key == K_s:
-                                                                snake.down()
+                                                                snake3.down()
                                                                 #y += 20 #DOWN
                                                             if choice.key == K_d:
-                                                                snake.right()
+                                                                snake3.right()
                                                                 #x += 20 #RIGHT
                                                             if choice.key == K_a:
-                                                                snake.left()
+                                                                snake3.left()
                                                                 #x -= 20 #LEFT
                                                 
-                                                    obstacle_collides3 = pygame.sprite.spritecollide(snake,obstaculos_deserto,False)
-                                                    apple_collides = pygame.sprite.spritecollide(snake,gp_maca,False)
-                                                    gecko_collides = pygame.sprite.spritecollide(snake,gp_lagartixa,False)
-                                                    rat_collides = pygame.sprite.spritecollide(snake,gp_rato,False)
+                                                    obstacle_collides3 = pygame.sprite.spritecollide(snake3,obstaculos_deserto,False)
+                                                    apple_collides = pygame.sprite.spritecollide(snake3,gp_maca,False)
+                                                    gecko_collides = pygame.sprite.spritecollide(snake3,gp_lagartixa,False)
+                                                    rat_collides = pygame.sprite.spritecollide(snake3,gp_rato,False)
 
                                                     if apple_collides:
                                                         score += 2
@@ -1713,7 +2266,7 @@ while play_screen:
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
                                                                 OFF = True
-                                                                snake.rect.topleft = 650,50
+                                                                snake3.rect.topleft = 650,50
                                                                 score = 0
 
                                                                 gamescreen.blit(deserto,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
@@ -1749,3 +2302,12 @@ while play_screen:
 """ FINALIZAR JOGO """
 pygame.quit()
 quit()
+
+'''if axis_x + tamanho > length:
+    game_over = True
+if axis_x < 0:
+        game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
+if axis_y + tamanho > height:
+    game_over = True
+if axis_y < 0:
+    game_over = True'''
