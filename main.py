@@ -31,8 +31,6 @@ deserto = pygame.image.load("images/Cenário Deserto3D.png")
 deserto = pygame.transform.scale(deserto,(length,height))
 
 """ POSIÇÃO COBRA """
-#axis_x = randint(tamanho, (length-tamanho))
-#axis_y = randint(tamanho, (height-tamanho))
 axis_x = length/2
 axis_y = height/2
 
@@ -211,7 +209,7 @@ class Snake3(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 650,50
+        self.rect.topleft = 650,120
         
         self.above = False
         self.below = False
@@ -284,7 +282,7 @@ class Maca1(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(25*2,25*2))
         
         self.rect = self.image.get_rect()
-        self.rect.topleft = 400,420
+        self.rect.topleft = 950,120
  
     def update(self):
         if self.rect.topleft[0] > length:
@@ -306,7 +304,7 @@ class Lagartixa1(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(34*2,34*2))
         
         self.rect = self.image.get_rect()
-        self.rect.topleft = 800,250
+        self.rect.topleft = 275,120
  
     def update(self):
         if self.rect.topleft[0] > length:
@@ -328,7 +326,7 @@ class Rato1(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(27*2,27*2))
         
         self.rect = self.image.get_rect()
-        self.rect.topleft = 250,0
+        self.rect.topleft = 400,400
  
     def update(self):
         if self.rect.topleft[0] > length:
@@ -806,10 +804,10 @@ class Cacto1(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.cacto1 = pygame.image.load("images/cacto1.png")
         self.image = self.cacto1
-        self.image = pygame.transform.scale(self.image,(100,200))
+        self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 520,0
+        self.rect.topleft = length - 100,0
         
 obstaculos_deserto = pygame.sprite.Group()
 cacto1 = Cacto1()
@@ -821,10 +819,10 @@ class Cacto11(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.cacto11 = pygame.image.load("images/cacto1.png")
         self.image = self.cacto11
-        self.image = pygame.transform.scale(self.image,(100,200))
+        self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 0,200
+        self.rect.topleft = length - 1200,0
         
 cacto11 = Cacto11()
 all_desert.add(cacto11)
@@ -835,10 +833,10 @@ class Cacto12(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.cacto12 = pygame.image.load("images/cacto1.png")
         self.image = self.cacto12
-        self.image = pygame.transform.scale(self.image,(100,200))
+        self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 750,280
+        self.rect.topleft = length - 100,height - 100
         
 cacto12 = Cacto12()
 all_desert.add(cacto12)
@@ -849,10 +847,10 @@ class Cacto13(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.cacto13 = pygame.image.load("images/cacto1.png")
         self.image = self.cacto13
-        self.image = pygame.transform.scale(self.image,(100,200))
+        self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 1000,420
+        self.rect.topleft = length - 1200,height - 100
         
 cacto13 = Cacto13()
 all_desert.add(cacto13)
@@ -863,10 +861,10 @@ class Cacto2(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.cacto2 = pygame.image.load("images/cacto2.png")
         self.image = self.cacto2
-        self.image = pygame.transform.scale(self.image,(100,150))
+        self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 1100,190
+        self.rect.topleft = length - 100,0 + 100
         
 cacto2 = Cacto2()
 all_desert.add(cacto2)
@@ -877,10 +875,10 @@ class Cacto21(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.cacto21 = pygame.image.load("images/cacto2.png")
         self.image = self.cacto21
-        self.image = pygame.transform.scale(self.image,(100,150))
+        self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 780,0
+        self.rect.topleft = length - 300,0
         
 cacto21 = Cacto21()
 all_desert.add(cacto21)
@@ -891,10 +889,10 @@ class Cacto22(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.cacto22 = pygame.image.load("images/cacto2.png")
         self.image = self.cacto22
-        self.image = pygame.transform.scale(self.image,(100,150))
+        self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 100,20
+        self.rect.topleft = length - 400,0
         
 cacto22 = Cacto22()
 all_desert.add(cacto22)
@@ -905,10 +903,10 @@ class Cacto23(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.cacto23 = pygame.image.load("images/cacto2.png")
         self.image = self.cacto23
-        self.image = pygame.transform.scale(self.image,(100,150))
+        self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 150,470
+        self.rect.topleft = length - 600,0
         
 cacto23 = Cacto23()
 all_desert.add(cacto23)
@@ -919,10 +917,10 @@ class Cacto24(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.cacto24 = pygame.image.load("images/cacto2.png")
         self.image = self.cacto24
-        self.image = pygame.transform.scale(self.image,(100,150))
+        self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 520,440
+        self.rect.topleft = length - 700,0
         
 cacto24 = Cacto24()
 all_desert.add(cacto24)
@@ -933,14 +931,210 @@ class Cacto25(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.cacto25 = pygame.image.load("images/cacto2.png")
         self.image = self.cacto25
-        self.image = pygame.transform.scale(self.image,(100,150))
+        self.image = pygame.transform.scale(self.image,(100,100))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 275,220
+        self.rect.topleft = length - 900,0
         
 cacto25 = Cacto25()
 all_desert.add(cacto25)
 obstaculos_deserto.add(cacto25)
+
+class Cacto26(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto26 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto26
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = length - 1000,0
+
+cacto26 = Cacto26()
+all_desert.add(cacto26)
+obstaculos_deserto.add(cacto26)
+
+class Cacto27(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto27 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto27
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = length - 100,0 + 200
+
+cacto27 = Cacto27()
+all_desert.add(cacto27)
+obstaculos_deserto.add(cacto27)
+
+class Cacto28(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto28 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto28
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = length - 100,0 + 325
+
+cacto28 = Cacto28()
+all_desert.add(cacto28)
+obstaculos_deserto.add(cacto28)
+
+class Cacto29(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto29 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto29
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = length - 100,0 + 450
+
+cacto29 = Cacto29()
+all_desert.add(cacto29)
+obstaculos_deserto.add(cacto29)
+
+class Cacto30(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto30 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto30
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = length - 300,height - 100
+
+cacto30 = Cacto30()
+all_desert.add(cacto30)
+obstaculos_deserto.add(cacto30)
+
+class Cacto31(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto31 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto31
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 0,0 + 100
+
+cacto31 = Cacto31()
+all_desert.add(cacto31)
+obstaculos_deserto.add(cacto31)
+
+class Cacto32(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto32 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto32
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 0,0 + 200
+
+cacto32 = Cacto32()
+all_desert.add(cacto32)
+obstaculos_deserto.add(cacto32)
+
+class Cacto33(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto33 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto33
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 0,0 + 325
+
+cacto33 = Cacto33()
+all_desert.add(cacto33)
+obstaculos_deserto.add(cacto33)
+
+class Cacto34(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto34 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto34
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 0,0 + 450
+
+cacto34 = Cacto34()
+all_desert.add(cacto34)
+obstaculos_deserto.add(cacto34)
+
+class Cacto35(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto35 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto35
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = length - 400,height - 100
+
+cacto35 = Cacto35()
+all_desert.add(cacto35)
+obstaculos_deserto.add(cacto35)
+
+class Cacto36(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto36 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto36
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = length - 600,height - 100
+
+cacto36 = Cacto36()
+all_desert.add(cacto36)
+obstaculos_deserto.add(cacto36)
+
+class Cacto37(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto37 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto37
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = length - 700,height - 100
+
+cacto37 = Cacto37()
+all_desert.add(cacto37)
+obstaculos_deserto.add(cacto37)
+
+class Cacto38(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto38 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto38
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = length - 900,height - 100
+
+cacto38 = Cacto38()
+all_desert.add(cacto38)
+obstaculos_deserto.add(cacto38)
+
+class Cacto39(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.cacto39 = pygame.image.load("images/cacto2.png")
+        self.image = self.cacto39
+        self.image = pygame.transform.scale(self.image,(100,100))
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = length - 1000,height - 100
+
+cacto39 = Cacto39()
+all_desert.add(cacto39)
+obstaculos_deserto.add(cacto39)
 
 """ IMPORTANDO ESCORPIÃO"""
 class Escorpiao1(pygame.sprite.Sprite):
@@ -951,7 +1145,7 @@ class Escorpiao1(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(64,64))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 400,0
+        self.rect.topleft = 500,0
  
     def update(self):
         if self.rect.bottom > height:
@@ -972,7 +1166,7 @@ class Escorpiao2(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(64,64))
  
         self.rect = self.image.get_rect()
-        self.rect.topleft = 900, 550
+        self.rect.topleft = 800, 550
  
     def update(self):
         if self.rect.bottom < 0:
@@ -984,6 +1178,48 @@ class Escorpiao2(pygame.sprite.Sprite):
 escorpiao2 = Escorpiao2()
 all_desert.add(escorpiao2)
 obstaculos_deserto.add(escorpiao2)
+
+class Escorpiao3(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.escorpiao3 = pygame.image.load("images/escorpião1.png")
+        self.image = self.escorpiao3
+        self.image = pygame.transform.scale(self.image,(64,64))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 200,0
+ 
+    def update(self):
+        if self.rect.bottom > height:
+            self.rect.y = 0
+        self.rect.y += 10
+        self.image = self.escorpiao3
+        self.image = pygame.transform.scale(self.image,(64,64))
+    
+escorpiao3 = Escorpiao3()
+all_desert.add(escorpiao3)
+obstaculos_deserto.add(escorpiao3)
+
+class Escorpiao4(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.escorpiao4 = pygame.image.load("images/escorpião1.png")
+        self.image = self.escorpiao4
+        self.image = pygame.transform.scale(self.image,(64,64))
+ 
+        self.rect = self.image.get_rect()
+        self.rect.topleft = 1100, 550
+ 
+    def update(self):
+        if self.rect.bottom < 0:
+            self.rect.y = height
+        self.rect.y -= 10
+        self.image = self.escorpiao4
+        self.image = pygame.transform.scale(self.image,(64,64))
+    
+escorpiao4 = Escorpiao4()
+all_desert.add(escorpiao4)
+obstaculos_deserto.add(escorpiao4)
 
 """ DEFINIÇÃO DO LOOP """
 time = pygame.time.Clock() # Relógio do FPS.
@@ -1130,19 +1366,19 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake1,gp_rato,False)
 
                                                     if apple_collides:
-                                                        score += 2
-                                                        apple1.rect.x = randrange(0,800,50)
-                                                        apple1.rect.y = randrange(0,600,50)
+                                                        score += 2 
+                                                        apple1.rect.x = randrange(320,950,50)
+                                                        apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
                                                         score += 5
-                                                        gecko1.rect.x = randrange(0,800,50)
-                                                        gecko1.rect.y = randrange(0,600,50)
+                                                        gecko1.rect.x = randrange(320,950,50)
+                                                        gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
                                                         score += 10
-                                                        rat1.rect.x = randrange(0,800,50)
-                                                        rat1.rect.y = randrange(0,600,50) 
+                                                        rat1.rect.x = randrange(320,950,50)
+                                                        rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides1:
                                                         """ LOOP DO GAME OVER """
@@ -1193,6 +1429,7 @@ while play_screen:
 
                                                             """ BOTÃO MENU """
                                                             if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                snake1.rect.topleft = 700,120
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = True                                            
@@ -1254,19 +1491,19 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake2,gp_rato,False)
 
                                                     if apple_collides:
-                                                        score += 2
-                                                        apple1.rect.x = randrange(0,800,50)
-                                                        apple1.rect.y = randrange(0,600,50)
+                                                        score += 2 
+                                                        apple1.rect.x = randrange(320,950,50)
+                                                        apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
                                                         score += 5
-                                                        gecko1.rect.x = randrange(0,800,50)
-                                                        gecko1.rect.y = randrange(0,600,50)
-                                                        
+                                                        gecko1.rect.x = randrange(320,950,50)
+                                                        gecko1.rect.y = randrange(120,440,50)
+                                                            
                                                     if rat_collides:
                                                         score += 10
-                                                        rat1.rect.x = randrange(0,800,50)
-                                                        rat1.rect.y = randrange(0,600,50)
+                                                        rat1.rect.x = randrange(320,950,50)
+                                                        rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides2:
 
@@ -1318,6 +1555,7 @@ while play_screen:
 
                                                             """ BOTÃO MENU """
                                                             if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                snake2.rect.topleft = 565,0
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = True
@@ -1334,7 +1572,6 @@ while play_screen:
                                                         gamescreen.blit(ftext9, (70,30))
                                                         
                                                         pygame.display.flip()
-
 
                                             """ BOTÃO DESERTO """
                                             if x > 495 and y > 490 and x < 725 and y < 570:
@@ -1383,19 +1620,19 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake3,gp_rato,False)
 
                                                     if apple_collides:
-                                                        score += 2
-                                                        apple1.rect.x = randrange(0,800,50)
-                                                        apple1.rect.y = randrange(0,600,50)
+                                                        score += 2 
+                                                        apple1.rect.x = randrange(320,950,50)
+                                                        apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
                                                         score += 5
-                                                        gecko1.rect.x = randrange(0,800,50)
-                                                        gecko1.rect.y = randrange(0,600,50)
-                                                        
+                                                        gecko1.rect.x = randrange(320,950,50)
+                                                        gecko1.rect.y = randrange(120,440,50)
+                                                            
                                                     if rat_collides:
                                                         score += 10
-                                                        rat1.rect.x = randrange(0,800,50)
-                                                        rat1.rect.y = randrange(0,600,50)
+                                                        rat1.rect.x = randrange(320,950,50)
+                                                        rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides3:
 
@@ -1435,7 +1672,7 @@ while play_screen:
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
                                                                 OFF = True
-                                                                snake3.rect.topleft = 650,50
+                                                                snake3.rect.topleft = 650,120
                                                                 score = 0
 
                                                                 gamescreen.blit(deserto,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
@@ -1447,6 +1684,7 @@ while play_screen:
 
                                                             """ BOTÃO MENU """
                                                             if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                snake3.rect.topleft = 650,120
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = True
@@ -1549,19 +1787,19 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake1,gp_rato,False)
 
                                                     if apple_collides:
-                                                        score += 2
-                                                        apple1.rect.x = randrange(0,800,50)
-                                                        apple1.rect.y = randrange(0,600,50)
+                                                        score += 2 
+                                                        apple1.rect.x = randrange(320,950,50)
+                                                        apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
                                                         score += 5
-                                                        gecko1.rect.x = randrange(0,800,50)
-                                                        gecko1.rect.y = randrange(0,600,50)
+                                                        gecko1.rect.x = randrange(320,950,50)
+                                                        gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
                                                         score += 10
-                                                        rat1.rect.x = randrange(0,800,50)
-                                                        rat1.rect.y = randrange(0,600,50) 
+                                                        rat1.rect.x = randrange(320,950,50)
+                                                        rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides1:
                                                         """ LOOP DO GAME OVER """
@@ -1612,6 +1850,7 @@ while play_screen:
 
                                                             """ BOTÃO MENU """
                                                             if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                snake1.rect.topleft = 700,120
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = True                                            
@@ -1673,19 +1912,19 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake2,gp_rato,False)
 
                                                     if apple_collides:
-                                                        score += 2
-                                                        apple1.rect.x = randrange(0,800,50)
-                                                        apple1.rect.y = randrange(0,600,50)
+                                                        score += 2 
+                                                        apple1.rect.x = randrange(320,950,50)
+                                                        apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
                                                         score += 5
-                                                        gecko1.rect.x = randrange(0,800,50)
-                                                        gecko1.rect.y = randrange(0,600,50)
-                                                        
+                                                        gecko1.rect.x = randrange(320,950,50)
+                                                        gecko1.rect.y = randrange(120,440,50)
+                                                            
                                                     if rat_collides:
                                                         score += 10
-                                                        rat1.rect.x = randrange(0,800,50)
-                                                        rat1.rect.y = randrange(0,600,50)
+                                                        rat1.rect.x = randrange(320,950,50)
+                                                        rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides2:
 
@@ -1737,6 +1976,7 @@ while play_screen:
 
                                                             """ BOTÃO MENU """
                                                             if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                snake2.rect.topleft = 565,0
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = True
@@ -1800,19 +2040,19 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake3,gp_rato,False)
 
                                                     if apple_collides:
-                                                        score += 2
-                                                        apple1.rect.x = randrange(0,800,50)
-                                                        apple1.rect.y = randrange(0,600,50)
+                                                        score += 2 
+                                                        apple1.rect.x = randrange(320,950,50)
+                                                        apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
                                                         score += 5
-                                                        gecko1.rect.x = randrange(0,800,50)
-                                                        gecko1.rect.y = randrange(0,600,50)
-                                                        
+                                                        gecko1.rect.x = randrange(320,950,50)
+                                                        gecko1.rect.y = randrange(120,440,50)
+                                                            
                                                     if rat_collides:
                                                         score += 10
-                                                        rat1.rect.x = randrange(0,800,50)
-                                                        rat1.rect.y = randrange(0,600,50)
+                                                        rat1.rect.x = randrange(320,950,50)
+                                                        rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides3:
 
@@ -1852,7 +2092,7 @@ while play_screen:
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
                                                                 OFF = True
-                                                                snake3.rect.topleft = 650,50
+                                                                snake3.rect.topleft = 650,120
                                                                 score = 0
 
                                                                 gamescreen.blit(deserto,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
@@ -1864,6 +2104,7 @@ while play_screen:
 
                                                             """ BOTÃO MENU """
                                                             if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                snake3.rect.topleft = 650,120
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = True
@@ -1965,19 +2206,19 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake1,gp_rato,False)
 
                                                     if apple_collides:
-                                                        score += 2
-                                                        apple1.rect.x = randrange(0,800,50)
-                                                        apple1.rect.y = randrange(0,600,50)
+                                                        score += 2 
+                                                        apple1.rect.x = randrange(320,950,50)
+                                                        apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
                                                         score += 5
-                                                        gecko1.rect.x = randrange(0,800,50)
-                                                        gecko1.rect.y = randrange(0,600,50)
+                                                        gecko1.rect.x = randrange(320,950,50)
+                                                        gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
                                                         score += 10
-                                                        rat1.rect.x = randrange(0,800,50)
-                                                        rat1.rect.y = randrange(0,600,50) 
+                                                        rat1.rect.x = randrange(320,950,50)
+                                                        rat1.rect.y = randrange(120,440,50) 
 
                                                     if obstacle_collides1:
                                                         """ LOOP DO GAME OVER """
@@ -2028,6 +2269,7 @@ while play_screen:
 
                                                             """ BOTÃO MENU """
                                                             if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                snake1.rect.topleft = 700,120
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = True
@@ -2089,19 +2331,19 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake2,gp_rato,False)
 
                                                     if apple_collides:
-                                                        score += 2
-                                                        apple1.rect.x = randrange(0,800,50)
-                                                        apple1.rect.y = randrange(0,600,50)
+                                                        score += 2 
+                                                        apple1.rect.x = randrange(320,950,50)
+                                                        apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
                                                         score += 5
-                                                        gecko1.rect.x = randrange(0,800,50)
-                                                        gecko1.rect.y = randrange(0,600,50)
-                                                        
+                                                        gecko1.rect.x = randrange(320,950,50)
+                                                        gecko1.rect.y = randrange(120,440,50)
+                                                            
                                                     if rat_collides:
                                                         score += 10
-                                                        rat1.rect.x = randrange(0,800,50)
-                                                        rat1.rect.y = randrange(0,600,50)
+                                                        rat1.rect.x = randrange(320,950,50)
+                                                        rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides2:
 
@@ -2153,6 +2395,7 @@ while play_screen:
 
                                                             """ BOTÃO MENU """
                                                             if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                snake2.rect.topleft = 565,0
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = True
@@ -2214,19 +2457,19 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake3,gp_rato,False)
 
                                                     if apple_collides:
-                                                        score += 2
-                                                        apple1.rect.x = randrange(0,800,50)
-                                                        apple1.rect.y = randrange(0,600,50)
+                                                        score += 2 
+                                                        apple1.rect.x = randrange(320,950,50)
+                                                        apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
                                                         score += 5
-                                                        gecko1.rect.x = randrange(0,800,50)
-                                                        gecko1.rect.y = randrange(0,600,50)
-                                                        
+                                                        gecko1.rect.x = randrange(320,950,50)
+                                                        gecko1.rect.y = randrange(120,440,50)
+                                                            
                                                     if rat_collides:
                                                         score += 10
-                                                        rat1.rect.x = randrange(0,800,50)
-                                                        rat1.rect.y = randrange(0,600,50)
+                                                        rat1.rect.x = randrange(320,950,50)
+                                                        rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides3:
 
@@ -2266,7 +2509,7 @@ while play_screen:
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
                                                                 OFF = True
-                                                                snake3.rect.topleft = 650,50
+                                                                snake3.rect.topleft = 650,120
                                                                 score = 0
 
                                                                 gamescreen.blit(deserto,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
@@ -2278,6 +2521,7 @@ while play_screen:
 
                                                             """ BOTÃO MENU """
                                                             if x > 690 and y > 290 and x < 920 and y < 370:
+                                                                snake3.rect.topleft = 650,120
                                                                 OFF = False
                                                                 game_scenery = False
                                                                 game_mode = True
