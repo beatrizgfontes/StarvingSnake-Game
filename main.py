@@ -44,6 +44,13 @@ textfont2 = pygame.font.SysFont('arial', 100, True, True)
 textfont3 = pygame.font.SysFont('arial', 80, True, False)
 textfont4 = pygame.font.SysFont('arial', 45, True, False)
 
+""" IMPORTANDO MÚSICAS """
+music = pygame.mixer.Sound("sounds/background_music.wav")
+music.set_volume(0.2) # 0 até 1
+ 
+score_sound = pygame.mixer.Sound("sounds/score.wav")
+score_sound.set_volume(1) # 0 até 1
+
 """ IMPORTANDO COBRA_FLORESTA """
 class Snake1(pygame.sprite.Sprite):
     def __init__(self):
@@ -1322,12 +1329,16 @@ while play_screen:
                                             """ BOTÃO FLORESTA """
                                             if x > 495 and y > 230 and x < 725 and y < 310:
 
+                                                music.play(-1) # -1 Para que recomece a música após o término.
+                                                music.set_volume(0.2)
+                                                
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     time.tick(5)
                                                     gamescreen.fill(white)
+                        
                                                     text9 = f"Score: {score}"
-                                                    ftext9 = textfont1.render(text9, True, black)
+                                                    ftext9 = textfont1.render(text9, True, white)
 
                                                     for choice in pygame.event.get():
                                                         if choice.type == QUIT:
@@ -1366,22 +1377,27 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake1,gp_rato,False)
 
                                                     if apple_collides:
+                                                        score_sound.play()
                                                         score += 2 
                                                         apple1.rect.x = randrange(320,950,50)
                                                         apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
+                                                        score_sound.play()
                                                         score += 5
                                                         gecko1.rect.x = randrange(320,950,50)
                                                         gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
+                                                        score_sound.play()
                                                         score += 10
                                                         rat1.rect.x = randrange(320,950,50)
                                                         rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides1:
                                                         """ LOOP DO GAME OVER """
+                                                        music.set_volume(0)
+
                                                         gamescreen.fill(forestgreen)
                                                                 
                                                         """ ELEMENTOS DA TELA """
@@ -1416,6 +1432,8 @@ while play_screen:
 
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                music.set_volume(0.2)
+
                                                                 OFF = True
                                                                 snake1.rect.topleft = 700,120
                                                                 score = 0
@@ -1440,6 +1458,7 @@ while play_screen:
                                                         gamescreen.blit(floresta, (0,0))
                                                         all_florest.draw(gamescreen)
                                                         all_florest.update()
+                                                        pygame.draw.rect(gamescreen, (blue), (50,15,230,70))
                                                         gamescreen.blit(ftext9, (70,30))
                                                     
                                                         pygame.display.flip()
@@ -1447,12 +1466,15 @@ while play_screen:
                                             """ BOTÃO CIDADE """
                                             if x > 495 and y > 360 and x < 725 and y < 440:
 
+                                                music.play(-1) # -1 Para que recomece a música após o término.
+                                                music.set_volume(0.2)
+
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     time.tick(5)
                                                     gamescreen.fill(white)
                                                     text9 = f"Score: {score}"
-                                                    ftext9 = textfont1.render(text9, True, black)
+                                                    ftext9 = textfont1.render(text9, True, white)
 
                                                     for choice in pygame.event.get():
                                                         if choice.type == QUIT:
@@ -1491,23 +1513,27 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake2,gp_rato,False)
 
                                                     if apple_collides:
+                                                        score_sound.play()
                                                         score += 2 
                                                         apple1.rect.x = randrange(320,950,50)
                                                         apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
+                                                        score_sound.play()
                                                         score += 5
                                                         gecko1.rect.x = randrange(320,950,50)
                                                         gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
+                                                        score_sound.play()
                                                         score += 10
                                                         rat1.rect.x = randrange(320,950,50)
                                                         rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides2:
-
                                                         """ LOOP DO GAME OVER """
+                                                        music.set_volume(0)
+
                                                         gamescreen.fill(forestgreen)
                                                             
                                                         """ ELEMENTOS DA TELA """
@@ -1542,6 +1568,8 @@ while play_screen:
 
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                music.set_volume(0.2)
+
                                                                 OFF = True
                                                                 snake2.rect.topleft = 565,0
                                                                 score = 0
@@ -1564,24 +1592,26 @@ while play_screen:
                                                         pygame.display.update()
 
                                                     else:
-                                                        #all.update()
-    
-                                                        gamescreen.blit(cidade,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
+                                                        gamescreen.blit(cidade, (0,0))
                                                         all_city.draw(gamescreen)
                                                         all_city.update()
+                                                        pygame.draw.rect(gamescreen, (blue), (50,15,230,70))
                                                         gamescreen.blit(ftext9, (70,30))
-                                                        
+                                                    
                                                         pygame.display.flip()
 
                                             """ BOTÃO DESERTO """
                                             if x > 495 and y > 490 and x < 725 and y < 570:
+
+                                                music.play(-1) # -1 Para que recomece a música após o término.
+                                                music.set_volume(0.2)
 
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     time.tick(5)
                                                     gamescreen.fill(white)
                                                     text9 = f"Score: {score}"
-                                                    ftext9 = textfont1.render(text9, True, black)
+                                                    ftext9 = textfont1.render(text9, True, white)
 
                                                     for choice in pygame.event.get():
                                                         if choice.type == QUIT:
@@ -1620,23 +1650,27 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake3,gp_rato,False)
 
                                                     if apple_collides:
+                                                        score_sound.play()
                                                         score += 2 
                                                         apple1.rect.x = randrange(320,950,50)
                                                         apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
+                                                        score_sound.play()
                                                         score += 5
                                                         gecko1.rect.x = randrange(320,950,50)
                                                         gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
+                                                        score_sound.play()
                                                         score += 10
                                                         rat1.rect.x = randrange(320,950,50)
                                                         rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides3:
-
                                                         """ LOOP DO GAME OVER """
+                                                        music.set_volume(0)
+
                                                         gamescreen.fill(forestgreen)
                                                             
                                                         """ ELEMENTOS DA TELA """
@@ -1671,6 +1705,8 @@ while play_screen:
 
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                music.set_volume(0.2)
+
                                                                 OFF = True
                                                                 snake3.rect.topleft = 650,120
                                                                 score = 0
@@ -1695,8 +1731,9 @@ while play_screen:
                                                         gamescreen.blit(deserto, (0,0))
                                                         all_desert.draw(gamescreen)
                                                         all_desert.update()
+                                                        pygame.draw.rect(gamescreen, (blue), (50,15,230,70))
                                                         gamescreen.blit(ftext9, (70,30))
-
+                                                    
                                                         pygame.display.flip()
 
                                     pygame.display.update() # Atualização da tela (porções da tela).
@@ -1742,12 +1779,15 @@ while play_screen:
                                             """ BOTÃO FLORESTA """
                                             if x > 495 and y > 230 and x < 725 and y < 310:
 
+                                                music.play(-1) # -1 Para que recomece a música após o término.
+                                                music.set_volume(0.2)
+
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     time.tick(10)
                                                     gamescreen.fill(white)
                                                     text9 = f"Score: {score}"
-                                                    ftext9 = textfont1.render(text9, True, black)
+                                                    ftext9 = textfont1.render(text9, True, white)
 
                                                     for choice in pygame.event.get():
                                                         if choice.type == QUIT:
@@ -1787,22 +1827,27 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake1,gp_rato,False)
 
                                                     if apple_collides:
+                                                        score_sound.play()
                                                         score += 2 
                                                         apple1.rect.x = randrange(320,950,50)
                                                         apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
+                                                        score_sound.play()
                                                         score += 5
                                                         gecko1.rect.x = randrange(320,950,50)
                                                         gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
+                                                        score_sound.play()
                                                         score += 10
                                                         rat1.rect.x = randrange(320,950,50)
                                                         rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides1:
                                                         """ LOOP DO GAME OVER """
+                                                        music.set_volume(0)
+
                                                         gamescreen.fill(forestgreen)
                                                                 
                                                         """ ELEMENTOS DA TELA """
@@ -1837,6 +1882,8 @@ while play_screen:
 
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                music.set_volume(0.2)
+
                                                                 OFF = True
                                                                 snake1.rect.topleft = 700,120
                                                                 score = 0
@@ -1861,6 +1908,7 @@ while play_screen:
                                                         gamescreen.blit(floresta, (0,0))
                                                         all_florest.draw(gamescreen)
                                                         all_florest.update()
+                                                        pygame.draw.rect(gamescreen, (blue), (50,15,230,70))
                                                         gamescreen.blit(ftext9, (70,30))
                                                     
                                                         pygame.display.flip()
@@ -1868,12 +1916,15 @@ while play_screen:
                                             """ BOTÃO CIDADE """
                                             if x > 495 and y > 360 and x < 725 and y < 440:
                                                 
+                                                music.play(-1) # -1 Para que recomece a música após o término.
+                                                music.set_volume(0.2)
+
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     time.tick(10)
                                                     gamescreen.fill(white)
                                                     text9 = f"Score: {score}"
-                                                    ftext9 = textfont1.render(text9, True, black)
+                                                    ftext9 = textfont1.render(text9, True, white)
 
                                                     for choice in pygame.event.get():
                                                         if choice.type == QUIT:
@@ -1912,23 +1963,27 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake2,gp_rato,False)
 
                                                     if apple_collides:
+                                                        score_sound.play()
                                                         score += 2 
                                                         apple1.rect.x = randrange(320,950,50)
                                                         apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
+                                                        score_sound.play()
                                                         score += 5
                                                         gecko1.rect.x = randrange(320,950,50)
                                                         gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
+                                                        score_sound.play()
                                                         score += 10
                                                         rat1.rect.x = randrange(320,950,50)
                                                         rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides2:
-
                                                         """ LOOP DO GAME OVER """
+                                                        music.set_volume(0)
+
                                                         gamescreen.fill(forestgreen)
                                                             
                                                         """ ELEMENTOS DA TELA """
@@ -1963,6 +2018,8 @@ while play_screen:
 
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                music.set_volume(0.2)
+
                                                                 OFF = True
                                                                 snake2.rect.topleft = 565,0
                                                                 score = 0
@@ -1984,24 +2041,26 @@ while play_screen:
                                                         pygame.display.update()
 
                                                     else:
-                                                        #all.update()
-    
-                                                        gamescreen.blit(cidade,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
+                                                        gamescreen.blit(cidade, (0,0))
                                                         all_city.draw(gamescreen)
                                                         all_city.update()
+                                                        pygame.draw.rect(gamescreen, (blue), (50,15,230,70))
                                                         gamescreen.blit(ftext9, (70,30))
-                                                        
+                                                    
                                                         pygame.display.flip()
 
                                             """ BOTÃO DESERTO """
                                             if x > 495 and y > 490 and x < 725 and y < 570:
                                                 
+                                                music.play(-1) # -1 Para que recomece a música após o término.
+                                                music.set_volume(0.2)
+
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     time.tick(10)
                                                     gamescreen.fill(white)
                                                     text9 = f"Score: {score}"
-                                                    ftext9 = textfont1.render(text9, True, black)
+                                                    ftext9 = textfont1.render(text9, True, white)
 
                                                     for choice in pygame.event.get():
                                                         if choice.type == QUIT:
@@ -2040,23 +2099,27 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake3,gp_rato,False)
 
                                                     if apple_collides:
+                                                        score_sound.play()
                                                         score += 2 
                                                         apple1.rect.x = randrange(320,950,50)
                                                         apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
+                                                        score_sound.play()
                                                         score += 5
                                                         gecko1.rect.x = randrange(320,950,50)
                                                         gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
+                                                        score_sound.play()
                                                         score += 10
                                                         rat1.rect.x = randrange(320,950,50)
                                                         rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides3:
-
                                                         """ LOOP DO GAME OVER """
+                                                        music.set_volume(0)
+
                                                         gamescreen.fill(forestgreen)
                                                             
                                                         """ ELEMENTOS DA TELA """
@@ -2091,6 +2154,8 @@ while play_screen:
 
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                music.set_volume(0.2)
+
                                                                 OFF = True
                                                                 snake3.rect.topleft = 650,120
                                                                 score = 0
@@ -2115,8 +2180,9 @@ while play_screen:
                                                         gamescreen.blit(deserto, (0,0))
                                                         all_desert.draw(gamescreen)
                                                         all_desert.update()
+                                                        pygame.draw.rect(gamescreen, (blue), (50,15,230,70))
                                                         gamescreen.blit(ftext9, (70,30))
-
+                                                    
                                                         pygame.display.flip()
 
                                     pygame.display.update() # Atualização da tela (porções da tela).
@@ -2162,12 +2228,15 @@ while play_screen:
                                             """ BOTÃO FLORESTA """
                                             if x > 495 and y > 230 and x < 725 and y < 310:
 
+                                                music.play(-1) # -1 Para que recomece a música após o término.
+                                                music.set_volume(0.2)
+
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     time.tick(15)
                                                     gamescreen.fill(white)
                                                     text9 = f"Score: {score}"
-                                                    ftext9 = textfont1.render(text9, True, black)
+                                                    ftext9 = textfont1.render(text9, True, white)
 
                                                     for choice in pygame.event.get():
                                                         if choice.type == QUIT:
@@ -2206,22 +2275,27 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake1,gp_rato,False)
 
                                                     if apple_collides:
+                                                        score_sound.play()
                                                         score += 2 
                                                         apple1.rect.x = randrange(320,950,50)
                                                         apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
+                                                        score_sound.play()
                                                         score += 5
                                                         gecko1.rect.x = randrange(320,950,50)
                                                         gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
+                                                        score_sound.play()
                                                         score += 10
                                                         rat1.rect.x = randrange(320,950,50)
-                                                        rat1.rect.y = randrange(120,440,50) 
+                                                        rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides1:
                                                         """ LOOP DO GAME OVER """
+                                                        music.set_volume(0)
+
                                                         gamescreen.fill(forestgreen)
                                                                 
                                                         """ ELEMENTOS DA TELA """
@@ -2256,6 +2330,8 @@ while play_screen:
 
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                music.set_volume(0.2)
+
                                                                 OFF = True
                                                                 snake1.rect.topleft = 700,120
                                                                 score = 0
@@ -2280,6 +2356,7 @@ while play_screen:
                                                         gamescreen.blit(floresta, (0,0))
                                                         all_florest.draw(gamescreen)
                                                         all_florest.update()
+                                                        pygame.draw.rect(gamescreen, (blue), (50,15,230,70))
                                                         gamescreen.blit(ftext9, (70,30))
                                                     
                                                         pygame.display.flip()
@@ -2287,12 +2364,15 @@ while play_screen:
                                             """ BOTÃO CIDADE """
                                             if x > 495 and y > 360 and x < 725 and y < 440:
                                                 
+                                                music.play(-1) # -1 Para que recomece a música após o término.
+                                                music.set_volume(0.2)
+
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     time.tick(15)
                                                     gamescreen.fill(white)
                                                     text9 = f"Score: {score}"
-                                                    ftext9 = textfont1.render(text9, True, black)
+                                                    ftext9 = textfont1.render(text9, True, white)
 
                                                     for choice in pygame.event.get():
                                                         if choice.type == QUIT:
@@ -2331,23 +2411,27 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake2,gp_rato,False)
 
                                                     if apple_collides:
+                                                        score_sound.play()
                                                         score += 2 
                                                         apple1.rect.x = randrange(320,950,50)
                                                         apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
+                                                        score_sound.play()
                                                         score += 5
                                                         gecko1.rect.x = randrange(320,950,50)
                                                         gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
+                                                        score_sound.play()
                                                         score += 10
                                                         rat1.rect.x = randrange(320,950,50)
                                                         rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides2:
-
                                                         """ LOOP DO GAME OVER """
+                                                        music.set_volume(0)
+
                                                         gamescreen.fill(forestgreen)
                                                             
                                                         """ ELEMENTOS DA TELA """
@@ -2382,6 +2466,8 @@ while play_screen:
 
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                music.set_volume(0.2)
+                                                                
                                                                 OFF = True
                                                                 snake2.rect.topleft = 565,0
                                                                 score = 0
@@ -2403,22 +2489,26 @@ while play_screen:
                                                         pygame.display.update()
 
                                                     else:
-                                                        gamescreen.blit(cidade,(0,0)) # 7° Posicionar a imagem na tela do jogo. 
+                                                        gamescreen.blit(cidade, (0,0))
                                                         all_city.draw(gamescreen)
                                                         all_city.update()
+                                                        pygame.draw.rect(gamescreen, (blue), (50,15,230,70))
                                                         gamescreen.blit(ftext9, (70,30))
-                                                        
+                                                    
                                                         pygame.display.flip()
 
                                             """ BOTÃO DESERTO """
                                             if x > 495 and y > 490 and x < 725 and y < 570:
                                                 
+                                                music.play(-1) # -1 Para que recomece a música após o término.
+                                                music.set_volume(0.2)
+
                                                 """ LOOP DO JOGO """
                                                 while OFF:
                                                     time.tick(15)
                                                     gamescreen.fill(white)
                                                     text9 = f"Score: {score}"
-                                                    ftext9 = textfont1.render(text9, True, black)
+                                                    ftext9 = textfont1.render(text9, True, white)
 
                                                     for choice in pygame.event.get():
                                                         if choice.type == QUIT:
@@ -2457,23 +2547,27 @@ while play_screen:
                                                     rat_collides = pygame.sprite.spritecollide(snake3,gp_rato,False)
 
                                                     if apple_collides:
+                                                        score_sound.play()
                                                         score += 2 
                                                         apple1.rect.x = randrange(320,950,50)
                                                         apple1.rect.y = randrange(120,440,50)
 
                                                     if gecko_collides:
+                                                        score_sound.play()
                                                         score += 5
                                                         gecko1.rect.x = randrange(320,950,50)
                                                         gecko1.rect.y = randrange(120,440,50)
                                                             
                                                     if rat_collides:
+                                                        score_sound.play()
                                                         score += 10
                                                         rat1.rect.x = randrange(320,950,50)
                                                         rat1.rect.y = randrange(120,440,50)
 
                                                     if obstacle_collides3:
-
                                                         """ LOOP DO GAME OVER """
+                                                        music.set_volume(0)
+
                                                         gamescreen.fill(forestgreen)
                                                             
                                                         """ ELEMENTOS DA TELA """
@@ -2508,6 +2602,8 @@ while play_screen:
 
                                                             """ BOTÃO CONTINUAR """
                                                             if x > 395 and y > 290 and x < 625 and y < 370:
+                                                                music.set_volume(0.2)
+
                                                                 OFF = True
                                                                 snake3.rect.topleft = 650,120
                                                                 score = 0
@@ -2532,8 +2628,9 @@ while play_screen:
                                                         gamescreen.blit(deserto, (0,0))
                                                         all_desert.draw(gamescreen)
                                                         all_desert.update()
+                                                        pygame.draw.rect(gamescreen, (blue), (50,15,230,70))
                                                         gamescreen.blit(ftext9, (70,30))
-
+                                                    
                                                         pygame.display.flip()
                     
                                     pygame.display.update()
@@ -2546,12 +2643,3 @@ while play_screen:
 """ FINALIZAR JOGO """
 pygame.quit()
 quit()
-
-'''if axis_x + tamanho > length:
-    game_over = True
-if axis_x < 0:
-        game_over = True                    # Todo esse bloco é para colidir com a borda e o jogo finalizar
-if axis_y + tamanho > height:
-    game_over = True
-if axis_y < 0:
-    game_over = True'''
