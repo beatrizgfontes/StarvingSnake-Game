@@ -2,6 +2,19 @@ import pygame
 from pygame.locals import *
 from random import randrange
 
+""" IMPORTAÇÕES DE OBJETOS """
+from food_classes.apple import Maca1
+from food_classes.gecko import Lagartixa1
+from food_classes.rat import Rato1
+from florest_s_objects.trees import *
+from florest_s_objects.bush import *
+from florest_s_objects.birds import *
+from city_s_objects.cars import *
+from city_s_objects.cat_and_person_s_object import *
+from desert_s_objects.cactus import *
+from desert_s_objects.scorpions import *
+from snake_import import *
+
 """ INICIALIZAR JOGO """
 pygame.init() # Inicializa todas as funções e variáveis da biblioteca pygame.
 
@@ -21,13 +34,13 @@ score = 0
 tamanho = 100
 
 """ CENÁRIOS DO JOGO """
-floresta = pygame.image.load("images/Cenário Floresta3D.png")
+floresta = pygame.image.load("background_images/Cenário Floresta3D.png")
 floresta = pygame.transform.scale(floresta,(length,height))
 
-cidade = pygame.image.load("images/Cenário Cidade3D.png")
+cidade = pygame.image.load("background_images/Cenário Cidade3D.png")
 cidade = pygame.transform.scale(cidade,(length,height))
 
-deserto = pygame.image.load("images/Cenário Deserto3D.png")
+deserto = pygame.image.load("background_images/Cenário Deserto3D.png")
 deserto = pygame.transform.scale(deserto,(length,height))
 
 """ POSIÇÃO COBRA """
@@ -51,77 +64,7 @@ music.set_volume(0.2) # 0 até 1
 score_sound = pygame.mixer.Sound("sounds/score.wav")
 score_sound.set_volume(1) # 0 até 1
 
-""" IMPORTANDO COBRA_FLORESTA """
-class Snake1(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.snakes1 = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
-        self.currently = 0
-        self.image = self.snakes1[self.currently]
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 700,120
-        
-        self.above = False
-        self.below = False
-        self.east = False #Right
-        self.west = False #Left
- 
- 
-    def up(self):
-        self.above = True
- 
-    def down(self):
-         self.below = True
- 
-    def right(self):
-        self.east = True
- 
-    def left(self):
-        self.west = True
-     
- 
-    def update(self):
-        self.currently = self.currently + 1
-        if self.above == True:
-            del self.snakes1[0:4]
-            self.snakes1.append(pygame.image.load("back/snakeback_0.png"))
-            self.snakes1.append(pygame.image.load("back/snakeback_1.png"))
-            self.snakes1.append(pygame.image.load("back/snakeback_2.png"))
-            #self.snakes = [pygame.image.load("back/snakeback_0.png"),pygame.image.load("back/snakeback_1.png"),pygame.image.load("back/snakeback_2.png")]
-            self.rect.y -= 50
-            self.above = False
-                    
-        if self.below == True:
-            del self.snakes1[0:4]
-            self.snakes1.append(pygame.image.load("front/snakefront_0.png"))
-            self.snakes1.append(pygame.image.load("front/snakefront_1.png"))
-            #self.snakes = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
-            self.rect.y += 50
-            self.below = False
- 
-        if self.east == True:
-            del self.snakes1[0:4]
-            self.snakes1.append(pygame.image.load("right/snakeright_0.png"))
-            self.snakes1.append(pygame.image.load("right/snakeright_1.png"))
-            #self.snakes = [pygame.image.load("right/snakeright_0.png"),pygame.image.load("right/snakeright_1.png")]
-            self.rect.x += 50
-            self.east = False
- 
-        if self.west == True:
-            del self.snakes1[0:4]
-            self.snakes1.append(pygame.image.load("left/snakeleft_0.png"))
-            self.snakes1.append(pygame.image.load("left/snakeleft_1.png"))
-            #self.snakes = [pygame.image.load("left/snakeleft_0.png"),pygame.image.load("left/snakeleft_1.png")]
-            self.rect.x -= 50
-            self.west = False
-            
-        if self.currently >= len(self.snakes1):
-            self.currently = 0
-        self.image = self.snakes1[self.currently]
-        self.image = pygame.transform.scale(self.image,(100,100))
-
+""" CRIANDO OS SPRITES GROUPS """
 all_florest = pygame.sprite.Group()
 all_city = pygame.sprite.Group()
 all_desert = pygame.sprite.Group()
@@ -129,1101 +72,323 @@ gp_maca = pygame.sprite.Group()
 gp_lagartixa = pygame.sprite.Group()
 gp_rato = pygame.sprite.Group()
 
+""" AGRUPANDO COBRA_FLORESTA """
 snake1 = Snake1()
 all_florest.add(snake1)
 
-""" IMPORTANDO COBRA_CIDADE """
-class Snake2(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.snakes2 = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
-        self.currently = 0
-        self.image = self.snakes2[self.currently]
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 565,0
-        
-        self.above = False
-        self.below = False
-        self.east = False #Right
-        self.west = False #Left
- 
- 
-    def up(self):
-        self.above = True
- 
-    def down(self):
-         self.below = True
- 
-    def right(self):
-        self.east = True
- 
-    def left(self):
-        self.west = True
-     
- 
-    def update(self):
-        self.currently = self.currently + 1
-        if self.above == True:
-            del self.snakes2[0:4]
-            self.snakes2.append(pygame.image.load("back/snakeback_0.png"))
-            self.snakes2.append(pygame.image.load("back/snakeback_1.png"))
-            self.snakes2.append(pygame.image.load("back/snakeback_2.png"))
-            #self.snakes = [pygame.image.load("back/snakeback_0.png"),pygame.image.load("back/snakeback_1.png"),pygame.image.load("back/snakeback_2.png")]
-            self.rect.y -= 50
-            self.above = False
-                    
-        if self.below == True:
-            del self.snakes2[0:4]
-            self.snakes2.append(pygame.image.load("front/snakefront_0.png"))
-            self.snakes2.append(pygame.image.load("front/snakefront_1.png"))
-            #self.snakes = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
-            self.rect.y += 50
-            self.below = False
- 
-        if self.east == True:
-            del self.snakes2[0:4]
-            self.snakes2.append(pygame.image.load("right/snakeright_0.png"))
-            self.snakes2.append(pygame.image.load("right/snakeright_1.png"))
-            #self.snakes = [pygame.image.load("right/snakeright_0.png"),pygame.image.load("right/snakeright_1.png")]
-            self.rect.x += 50
-            self.east = False
- 
-        if self.west == True:
-            del self.snakes2[0:4]
-            self.snakes2.append(pygame.image.load("left/snakeleft_0.png"))
-            self.snakes2.append(pygame.image.load("left/snakeleft_1.png"))
-            #self.snakes = [pygame.image.load("left/snakeleft_0.png"),pygame.image.load("left/snakeleft_1.png")]
-            self.rect.x -= 50
-            self.west = False
-            
-        if self.currently >= len(self.snakes2):
-            self.currently = 0
-        self.image = self.snakes2[self.currently]
-        self.image = pygame.transform.scale(self.image,(100,100))
-
+""" AGRUPANDO COBRA_CIDADE """
 snake2 = Snake2()
 all_city.add(snake2)
 
-""" IMPORTANDO COBRA_DESERTO """
-class Snake3(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.snakes3 = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
-        self.currently = 0
-        self.image = self.snakes3[self.currently]
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 650,120
-        
-        self.above = False
-        self.below = False
-        self.east = False #Right
-        self.west = False #Left
- 
- 
-    def up(self):
-        self.above = True
- 
-    def down(self):
-         self.below = True
- 
-    def right(self):
-        self.east = True
- 
-    def left(self):
-        self.west = True
-     
- 
-    def update(self):
-        self.currently = self.currently + 1
-        if self.above == True:
-            del self.snakes3[0:4]
-            self.snakes3.append(pygame.image.load("back/snakeback_0.png"))
-            self.snakes3.append(pygame.image.load("back/snakeback_1.png"))
-            self.snakes3.append(pygame.image.load("back/snakeback_2.png"))
-            #self.snakes = [pygame.image.load("back/snakeback_0.png"),pygame.image.load("back/snakeback_1.png"),pygame.image.load("back/snakeback_2.png")]
-            self.rect.y -= 50
-            self.above = False
-                    
-        if self.below == True:
-            del self.snakes3[0:4]
-            self.snakes3.append(pygame.image.load("front/snakefront_0.png"))
-            self.snakes3.append(pygame.image.load("front/snakefront_1.png"))
-            #self.snakes = [pygame.image.load("front/snakefront_0.png"),pygame.image.load("front/snakefront_1.png")]
-            self.rect.y += 50
-            self.below = False
- 
-        if self.east == True:
-            del self.snakes3[0:4]
-            self.snakes3.append(pygame.image.load("right/snakeright_0.png"))
-            self.snakes3.append(pygame.image.load("right/snakeright_1.png"))
-            #self.snakes = [pygame.image.load("right/snakeright_0.png"),pygame.image.load("right/snakeright_1.png")]
-            self.rect.x += 50
-            self.east = False
- 
-        if self.west == True:
-            del self.snakes3[0:4]
-            self.snakes3.append(pygame.image.load("left/snakeleft_0.png"))
-            self.snakes3.append(pygame.image.load("left/snakeleft_1.png"))
-            #self.snakes = [pygame.image.load("left/snakeleft_0.png"),pygame.image.load("left/snakeleft_1.png")]
-            self.rect.x -= 50
-            self.west = False
-            
-        if self.currently >= len(self.snakes3):
-            self.currently = 0
-        self.image = self.snakes3[self.currently]
-        self.image = pygame.transform.scale(self.image,(100,100))
-        
+""" AGRUPANDO COBRA_DESERTO """       
 snake3 = Snake3()
 all_desert.add(snake3)
 
-""" IMPORTANDO MAÇÃ """
-class Maca1(pygame.sprite.Sprite):
-    def __init__ (self):
-        pygame.sprite.Sprite.__init__(self)
-        maca1 = pygame.image.load("images/maca1.png")
-        self.image = maca1
-        self.image = pygame.transform.scale(self.image,(25*2,25*2))
-        
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 950,120
- 
-    def update(self):
-        if self.rect.topleft[0] > length:
-            self.rect.x = 0
-        #self.rect.x += 30
-
+""" AGRUPANDO MAÇÃ """
 apple1 = Maca1()
 all_florest.add(apple1)
 all_city.add(apple1)
 all_desert.add(apple1)
 gp_maca.add(apple1)
 
-""" IMPORTANDO LAGARTIXA """
-class Lagartixa1(pygame.sprite.Sprite):
-    def __init__ (self):
-        pygame.sprite.Sprite.__init__(self)
-        lagartixa1 = pygame.image.load("images/lagartixa1.png")
-        self.image = lagartixa1
-        self.image = pygame.transform.scale(self.image,(34*2,34*2))
-        
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 275,120
- 
-    def update(self):
-        if self.rect.topleft[0] > length:
-            self.rect.x = 0
-        #self.rect.x += 30
-
+""" AGRUPANDO LAGARTIXA """
 gecko1 = Lagartixa1()
 all_florest.add(gecko1)
 all_city.add(gecko1)
 all_desert.add(gecko1)
 gp_lagartixa.add(gecko1)
 
-""" IMPORTANDO RATO """
-class Rato1(pygame.sprite.Sprite):
-    def __init__ (self):
-        pygame.sprite.Sprite.__init__(self)
-        rato1 = pygame.image.load("images/rato1.png")
-        self.image = rato1
-        self.image = pygame.transform.scale(self.image,(27*2,27*2))
-        
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 400,400
- 
-    def update(self):
-        if self.rect.topleft[0] > length:
-            self.rect.x = 0
-        #self.rect.x += 30
-
+""" AGRUPANDO RATO """
 rat1 = Rato1()
 all_florest.add(rat1)
 all_city.add(rat1)
 all_desert.add(rat1)
 gp_rato.add(rat1)
 
-""" IMPORTANDO ÁRVORES """
-class Arvore1(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arvore1 = pygame.image.load("images/arvore1.png")
-        self.image = self.arvore1
-        self.image = pygame.transform.scale(self.image,(300,400))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 0,300
- 
+""" AGRUPANDO ÁRVORES """
+# Árvore 1
 obstaculos_floresta = pygame.sprite.Group()
 arvore1 = Arvore1()
 all_florest.add(arvore1)
 obstaculos_floresta.add(arvore1)
- 
-class Arvore2(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arvore2 = pygame.image.load("images/arvore1.png")
-        self.image = self.arvore2
-        self.image = pygame.transform.scale(self.image,(300,400))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 1000,0
- 
+
+# Árvore 2
 arvore2 = Arvore2()
 all_florest.add(arvore2)
 obstaculos_floresta.add(arvore2)
  
-""" IMPORTANDO ARBUSTOS """
-class Arbusto1(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto1 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto1
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 175,545
- 
+""" AGRUPANDO ARBUSTOS """
+# Arbusto 1
 arbusto1 = Arbusto1()
 all_florest.add(arbusto1)
 obstaculos_floresta.add(arbusto1)
  
-class Arbusto2(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto2 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto2
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 300,545
- 
+# Arbusto 2 
 arbusto2 = Arbusto2()
 all_florest.add(arbusto2)
 obstaculos_floresta.add(arbusto2)
  
-class Arbusto3(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto3 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto3
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 425,545
- 
+# Arbusto 3 
 arbusto3 = Arbusto3()
 all_florest.add(arbusto3)
 obstaculos_floresta.add(arbusto3)
  
-class Arbusto4(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto4 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto4
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 550,545
- 
+# Arbusto 4 
 arbusto4 = Arbusto4()
 all_florest.add(arbusto4)
 obstaculos_floresta.add(arbusto4)
- 
-class Arbusto5(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto5 = pygame.image.load("images/arbusto2.png")
-        self.image = self.arbusto5
-        self.image = pygame.transform.scale(self.image,(100,150))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 0,0
- 
+
+# Arbusto 5 
 arbusto5 = Arbusto5()
 all_florest.add(arbusto5)
 obstaculos_floresta.add(arbusto5)
  
-class Arbusto6(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto6 = pygame.image.load("images/arbusto2.png")
-        self.image = self.arbusto6
-        self.image = pygame.transform.scale(self.image,(100,150))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 0,125
- 
+# Arbusto 6 
 arbusto6 = Arbusto6()
 all_florest.add(arbusto6)
 obstaculos_floresta.add(arbusto6)
  
-class Arbusto7(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto7 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto7
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 500,0
- 
+# Arbusto 7 
 arbusto7 = Arbusto7()
 all_florest.add(arbusto7)
 obstaculos_floresta.add(arbusto7)
  
-class Arbusto8(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto8 = pygame.image.load("images/arbusto2.png")
-        self.image = self.arbusto8
-        self.image = pygame.transform.scale(self.image,(100,150))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 1200,505
- 
+# Arbusto 8 
 arbusto8 = Arbusto8()
 all_florest.add(arbusto8)
 obstaculos_floresta.add(arbusto8)
  
-class Arbusto9(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto9 = pygame.image.load("images/arbusto2.png")
-        self.image = self.arbusto9
-        self.image = pygame.transform.scale(self.image,(100,150))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 1200,380
- 
+# Arbusto 9 
 arbusto9 = Arbusto9()
 all_florest.add(arbusto9)
 obstaculos_floresta.add(arbusto9)
  
-class Arbusto10(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto10 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto10
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 625,0
- 
+# Arbusto 10 
 arbusto10 = Arbusto10()
 all_florest.add(arbusto10)
 obstaculos_floresta.add(arbusto10)
  
-class Arbusto11(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto11 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto11
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 675,545
- 
+# Arbusto 11 
 arbusto11 = Arbusto11()
 all_florest.add(arbusto11)
 obstaculos_floresta.add(arbusto11)
- 
-class Arbusto12(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto12 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto12
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 800,545
- 
+
+# Arbusto 12 
 arbusto12 = Arbusto12()
 all_florest.add(arbusto12)
 obstaculos_floresta.add(arbusto12)
  
-class Arbusto13(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto13 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto13
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 925,545
- 
+# Arbusto 13 
 arbusto13 = Arbusto13()
 all_florest.add(arbusto13)
 obstaculos_floresta.add(arbusto13)
- 
-class Arbusto14(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto14 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto14
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 1050,545
- 
+
+# Arbusto 14 
 arbusto14 = Arbusto14()
 all_florest.add(arbusto14)
 obstaculos_floresta.add(arbusto14)
- 
-class Arbusto15(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto15 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto15
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 750,0
- 
+
+# Arbusto 15 
 arbusto15 = Arbusto15()
 all_florest.add(arbusto15)
 obstaculos_floresta.add(arbusto15)
  
-class Arbusto16(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto16 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto16
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 750,0
- 
+# Arbusto 16 
 arbusto16 = Arbusto16()
 all_florest.add(arbusto16)
 obstaculos_floresta.add(arbusto16)
- 
-class Arbusto17(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto17 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto17
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 875,0
- 
+
+# Arbusto 17 
 arbusto17 = Arbusto17()
 all_florest.add(arbusto17)
 obstaculos_floresta.add(arbusto17)
- 
-class Arbusto18(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto18 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto18
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 375,0
- 
+
+# Arbusto 18 
 arbusto18 = Arbusto18()
 all_florest.add(arbusto18)
 obstaculos_floresta.add(arbusto18)
- 
-class Arbusto19(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto19 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto19
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 250,0
- 
+
+# Arbusto 19 
 arbusto19 = Arbusto19()
 all_florest.add(arbusto19)
 obstaculos_floresta.add(arbusto19)
  
-class Arbusto20(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.arbusto20 = pygame.image.load("images/arbusto.png")
-        self.image = self.arbusto20
-        self.image = pygame.transform.scale(self.image,(150,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 125,0
- 
+# Arbusto 20 
 arbusto20 = Arbusto20()
 all_florest.add(arbusto20)
 obstaculos_floresta.add(arbusto20)
  
-""" IMPORTANDO PÁSSAROS """
-class Bird2(pygame.sprite.Sprite):
-    def __init__ (self):
-        pygame.sprite.Sprite.__init__(self)
-        self.bird2 = [pygame.image.load("images/passaro2.1.png"),pygame.image.load("images/passaro2.2.png"),pygame.image.load("images/passaro2.3.png"),pygame.image.load("images/passaro2.4.png"),pygame.image.load("images/passaro2.5.png")]
-        self.currently = 0
-        self.image = self.bird2[self.currently]
-        self.image = pygame.transform.scale(self.image,(150,200))
-        
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 0,220
- 
-    def update(self):
-        self.currently +=1
-        if self.rect.topleft[0] > length:
-            self.rect.x = 0
-        self.rect.x += 35
- 
-        if self.currently >= len(self.bird2):
-            self.currently = 0
-            
-        self.image = self.bird2[self.currently]
-        self.image = pygame.transform.scale(self.image,(150,200))
- 
+""" AGRUPANDO PÁSSAROS """
+# Pássaro 2
 bird2 = Bird2()
 all_florest.add(bird2)
 obstaculos_floresta.add(bird2)
  
-class Bird1(pygame.sprite.Sprite):
-    def __init__ (self):
-        pygame.sprite.Sprite.__init__(self)
-        self.bird1 = [pygame.image.load("images/passaro1.1.png"),pygame.image.load("images/passaro1.2.png"),pygame.image.load("images/passaro1.3.png"),pygame.image.load("images/passaro1.4.png"),pygame.image.load("images/passaro1.5.png")]
-        self.currently = 0
-        self.image = self.bird1[self.currently]
-        self.image = pygame.transform.scale(self.image,(150,200))
-        
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 0,350
- 
-    def update(self):
-        self.currently +=1
-        if self.rect.topright[0] < 0:
-            self.rect.x = length
-        self.rect.x -= 20
- 
-        if self.currently >= len(self.bird1):
-            self.currently = 0
-            
-        self.image = self.bird1[self.currently]
-        self.image = pygame.transform.scale(self.image,(150,200))
- 
+# Pássaro 1
 bird1 = Bird1()
 all_florest.add(bird1)
 obstaculos_floresta.add(bird1)
 
-""" IMPORTANDO CARROS """
-class Carro1(pygame.sprite.Sprite):
-    def __init__ (self):
-        pygame.sprite.Sprite.__init__(self)
-        carro1 = pygame.image.load("images/carro1.png")
-        self.image = carro1
-        self.image = pygame.transform.scale(self.image,(400,150))
-        
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 400,300
- 
-    def update(self):
-        if self.rect.topleft[0] > length:
-            self.rect.x = 0
-        self.rect.x += 20
- 
+""" AGRUPANDO CARROS """
+#Carro 1 
 obstaculos_cidade = pygame.sprite.Group()
 car1 = Carro1()
 all_city.add(car1)
 obstaculos_cidade.add(car1)
 
-class Carro2(pygame.sprite.Sprite):
-    def __init__ (self):
-        pygame.sprite.Sprite.__init__(self)
-        carro2 = pygame.image.load("images/carro2.png")
-        self.image = carro2
-        self.image = pygame.transform.scale(self.image,(400,150))
-        
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 400,420
- 
-    def update(self):
-        if self.rect.topleft[0] > length:
-            self.rect.x = 0
-        self.rect.x += 30
- 
+#Carro 2
 car2 = Carro2()
 all_city.add(car2)
 obstaculos_cidade.add(car2)
 
-""" IMPORTANDO PESSOA E GATO """
-class People(pygame.sprite.Sprite):
-    def __init__ (self):
-        pygame.sprite.Sprite.__init__(self)
-        self.pessoa = [pygame.image.load("images/pessoa2.png"),pygame.image.load("images/pessoa3.png"),pygame.image.load("images/pessoa4.png"),pygame.image.load("images/pessoa5.png")]
-        self.currently = 0
-        self.image = self.pessoa[self.currently]
-        self.image = pygame.transform.scale(self.image,(150,200))
-        
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 0,430
- 
-    def update(self):
-        self.currently = self.currently + 1
-        if self.rect.topright[0] < 0:
-            self.rect.x = length
-        self.rect.x -= 20
- 
-        if self.currently >= len(self.pessoa):
-            self.currently = 0
-        self.image = self.pessoa[self.currently]
-        self.image = pygame.transform.scale(self.image,(150,200))
- 
+""" AGRUPANDO PESSOA E GATO """
 people = People()
 all_city.add(people)
 obstaculos_cidade.add(people)
- 
-class Gato(pygame.sprite.Sprite):
-    def __init__ (self):
-        pygame.sprite.Sprite.__init__(self)
-        self.gato = [pygame.image.load("images/gato0.png"),pygame.image.load("images/gato1.png"),pygame.image.load("images/gato2.png")]
-        self.currently = 0
-        self.image = self.gato[self.currently]
-        self.image = pygame.transform.scale(self.image,(33*2,33*2))
-        
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 230,230
- 
-    def update(self):
-        self.currently = self.currently + 1
-        if self.rect.topright[0] > length:
-            self.rect.x = 0
-        self.rect.x += 20
- 
-        if self.currently >= len(self.gato):
-            self.currently = 0
-        self.image = self.gato[self.currently]
-        self.image = pygame.transform.scale(self.image,(33*2,33*2))
  
 gato = Gato()
 all_city.add(gato)
 obstaculos_cidade.add(gato)
 
-""" IMPORTANDO CACTO """
-class Cacto1(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto1 = pygame.image.load("images/cacto1.png")
-        self.image = self.cacto1
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 100,0
-        
+""" AGRUPANDO CACTO """
+#Cacto 1       
 obstaculos_deserto = pygame.sprite.Group()
 cacto1 = Cacto1()
 all_desert.add(cacto1)
 obstaculos_deserto.add(cacto1)
 
-class Cacto11(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto11 = pygame.image.load("images/cacto1.png")
-        self.image = self.cacto11
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 1200,0
-        
+#Cacto 11       
 cacto11 = Cacto11()
 all_desert.add(cacto11)
 obstaculos_deserto.add(cacto11)
 
-class Cacto12(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto12 = pygame.image.load("images/cacto1.png")
-        self.image = self.cacto12
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 100,height - 100
-        
+#Cacto 12        
 cacto12 = Cacto12()
 all_desert.add(cacto12)
 obstaculos_deserto.add(cacto12)
  
-class Cacto13(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto13 = pygame.image.load("images/cacto1.png")
-        self.image = self.cacto13
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 1200,height - 100
-        
+#Cacto 13        
 cacto13 = Cacto13()
 all_desert.add(cacto13)
 obstaculos_deserto.add(cacto13)
  
-class Cacto2(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto2 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto2
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 100,0 + 100
-        
+#Cacto 2        
 cacto2 = Cacto2()
 all_desert.add(cacto2)
 obstaculos_deserto.add(cacto2)
  
-class Cacto21(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto21 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto21
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 300,0
-        
+#Cacto 21        
 cacto21 = Cacto21()
 all_desert.add(cacto21)
 obstaculos_deserto.add(cacto21)
  
-class Cacto22(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto22 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto22
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 400,0
-        
+#Cacto 22        
 cacto22 = Cacto22()
 all_desert.add(cacto22)
 obstaculos_deserto.add(cacto22)
  
-class Cacto23(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto23 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto23
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 600,0
-        
+#Cacto 23        
 cacto23 = Cacto23()
 all_desert.add(cacto23)
 obstaculos_deserto.add(cacto23)
  
-class Cacto24(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto24 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto24
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 700,0
-        
+#Cacto 24        
 cacto24 = Cacto24()
 all_desert.add(cacto24)
 obstaculos_deserto.add(cacto24)
  
-class Cacto25(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto25 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto25
-        self.image = pygame.transform.scale(self.image,(100,100))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 900,0
-        
+#Cacto 25        
 cacto25 = Cacto25()
 all_desert.add(cacto25)
 obstaculos_deserto.add(cacto25)
 
-class Cacto26(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto26 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto26
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 1000,0
-
+#Cacto 26
 cacto26 = Cacto26()
 all_desert.add(cacto26)
 obstaculos_deserto.add(cacto26)
 
-class Cacto27(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto27 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto27
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 100,0 + 200
-
+#Cacto 27
 cacto27 = Cacto27()
 all_desert.add(cacto27)
 obstaculos_deserto.add(cacto27)
 
-class Cacto28(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto28 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto28
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 100,0 + 325
-
+#Cacto 28
 cacto28 = Cacto28()
 all_desert.add(cacto28)
 obstaculos_deserto.add(cacto28)
 
-class Cacto29(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto29 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto29
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 100,0 + 450
-
+#Cacto 29
 cacto29 = Cacto29()
 all_desert.add(cacto29)
 obstaculos_deserto.add(cacto29)
 
-class Cacto30(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto30 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto30
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 300,height - 100
-
+#Cacto 30
 cacto30 = Cacto30()
 all_desert.add(cacto30)
 obstaculos_deserto.add(cacto30)
 
-class Cacto31(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto31 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto31
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 0,0 + 100
-
+#Cacto 31
 cacto31 = Cacto31()
 all_desert.add(cacto31)
 obstaculos_deserto.add(cacto31)
 
-class Cacto32(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto32 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto32
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 0,0 + 200
-
+#Cacto 32
 cacto32 = Cacto32()
 all_desert.add(cacto32)
 obstaculos_deserto.add(cacto32)
 
-class Cacto33(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto33 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto33
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 0,0 + 325
-
+#Cacto 33
 cacto33 = Cacto33()
 all_desert.add(cacto33)
 obstaculos_deserto.add(cacto33)
 
-class Cacto34(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto34 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto34
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 0,0 + 450
-
+#Cacto 34
 cacto34 = Cacto34()
 all_desert.add(cacto34)
 obstaculos_deserto.add(cacto34)
 
-class Cacto35(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto35 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto35
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 400,height - 100
-
+#Cacto 35
 cacto35 = Cacto35()
 all_desert.add(cacto35)
 obstaculos_deserto.add(cacto35)
 
-class Cacto36(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto36 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto36
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 600,height - 100
-
+#Cacto 36
 cacto36 = Cacto36()
 all_desert.add(cacto36)
 obstaculos_deserto.add(cacto36)
 
-class Cacto37(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto37 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto37
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 700,height - 100
-
+#Cacto 37
 cacto37 = Cacto37()
 all_desert.add(cacto37)
 obstaculos_deserto.add(cacto37)
 
-class Cacto38(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto38 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto38
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 900,height - 100
-
+#Cacto 38
 cacto38 = Cacto38()
 all_desert.add(cacto38)
 obstaculos_deserto.add(cacto38)
 
-class Cacto39(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.cacto39 = pygame.image.load("images/cacto2.png")
-        self.image = self.cacto39
-        self.image = pygame.transform.scale(self.image,(100,100))
-
-        self.rect = self.image.get_rect()
-        self.rect.topleft = length - 1000,height - 100
-
+#Cacto 39
 cacto39 = Cacto39()
 all_desert.add(cacto39)
 obstaculos_deserto.add(cacto39)
 
-""" IMPORTANDO ESCORPIÃO"""
-class Escorpiao1(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.escorpiao1 = pygame.image.load("images/escorpião1.png")
-        self.image = self.escorpiao1
-        self.image = pygame.transform.scale(self.image,(64,64))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 500,0
- 
-    def update(self):
-        if self.rect.bottom > height:
-            self.rect.y = 0
-        self.rect.y += 20
-        self.image = self.escorpiao1
-        self.image = pygame.transform.scale(self.image,(64,64))
-    
+""" AGRUPANDO ESCORPIÃO"""
+#Escorpião 1   
 escorpiao1 = Escorpiao1()
 all_desert.add(escorpiao1)
 obstaculos_deserto.add(escorpiao1)
  
-class Escorpiao2(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.escorpiao2 = pygame.image.load("images/escorpião1.png")
-        self.image = self.escorpiao2
-        self.image = pygame.transform.scale(self.image,(64,64))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 800, 550
- 
-    def update(self):
-        if self.rect.bottom < 0:
-            self.rect.y = height
-        self.rect.y -= 20
-        self.image = self.escorpiao2
-        self.image = pygame.transform.scale(self.image,(64,64))
-    
+#Escorpião 2    
 escorpiao2 = Escorpiao2()
 all_desert.add(escorpiao2)
 obstaculos_deserto.add(escorpiao2)
 
-class Escorpiao3(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.escorpiao3 = pygame.image.load("images/escorpião1.png")
-        self.image = self.escorpiao3
-        self.image = pygame.transform.scale(self.image,(64,64))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 200,0
- 
-    def update(self):
-        if self.rect.bottom > height:
-            self.rect.y = 0
-        self.rect.y += 10
-        self.image = self.escorpiao3
-        self.image = pygame.transform.scale(self.image,(64,64))
-    
+#Escorpião 3    
 escorpiao3 = Escorpiao3()
 all_desert.add(escorpiao3)
 obstaculos_deserto.add(escorpiao3)
 
-class Escorpiao4(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.escorpiao4 = pygame.image.load("images/escorpião1.png")
-        self.image = self.escorpiao4
-        self.image = pygame.transform.scale(self.image,(64,64))
- 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 1100, 550
- 
-    def update(self):
-        if self.rect.bottom < 0:
-            self.rect.y = height
-        self.rect.y -= 10
-        self.image = self.escorpiao4
-        self.image = pygame.transform.scale(self.image,(64,64))
-    
+#Escorpião 4    
 escorpiao4 = Escorpiao4()
 all_desert.add(escorpiao4)
 obstaculos_deserto.add(escorpiao4)
@@ -2643,3 +1808,12 @@ while play_screen:
 """ FINALIZAR JOGO """
 pygame.quit()
 quit()
+
+'''if snake2.rect.x == 0:
+    snake2.rect.x = length - 100
+    if snake2.rect.y == 0:
+        snake2.rect.y = height - 100
+    if snake2.rect.x > length:
+        snake2.rect.x = 0
+    if snake2.rect.y > height:
+        snake2.rect.y = 0'''
